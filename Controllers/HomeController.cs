@@ -1,4 +1,5 @@
 using HouseCleanersApi.Data;
+using HouseCleanersApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -9,25 +10,18 @@ namespace HouseCleanersApi.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        private readonly clearnersDbContext _context;
+        private readonly IGeneralRepository _repository;
 
-        public HomeController(clearnersDbContext context)
+        public HomeController(IGeneralRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
-        // GET
-        public IActionResult Index()
-        {
-            return new ObjectResult(_context.Categories);
-        }
-[HttpPost]
-[Route("CreateCategory")]
-        public IActionResult CreateCategory([FromBody] Categories cat)
-        {
-            var c = _context.Categories.Add(cat);
-            _context.SaveChanges();
-            return new ObjectResult(c); 
-        }
+          [HttpGet]
+                   [Route("Category")]
+                   public IActionResult GetAllCategories()
+                   {
+                       return new ObjectResult(_repository.categorie);
+                   }
     }
     
 }

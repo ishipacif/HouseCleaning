@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HouseCleanersApi.Data
 {
@@ -11,7 +12,9 @@ namespace HouseCleanersApi.Data
         }
 
         public int CategoryId { get; set; }
+        [Required]
         public string CategoryName { get; set; }
+        [Required]
         public string CategoryDescription { get; set; }
 
         public virtual ICollection<Services> Services { get; set; }

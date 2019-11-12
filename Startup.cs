@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HouseCleanersApi.BusinessLayer;
 using HouseCleanersApi.Data;
+using HouseCleanersApi.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,7 +17,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore.Design;
 using  Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Swagger;
 using Seeder = HouseCleanersApi.Data.Seeder;
+
 
 namespace HouseCleanersApi
 {
@@ -43,7 +48,13 @@ namespace HouseCleanersApi
                ;
 
             services.AddTransient<Seeder>();
+            services.AddScoped<IGeneralRepository, GeneralRepository>(); // activation le service des service, en appelant l'interface on instancie la classe. 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddSwaggerGen(doc =>
+                doc.SwaggerDoc("v1", new OpenApiInfo {Title = "DocumentationApi", Version = "v1"}));
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,11 +63,11 @@ namespace HouseCleanersApi
             if (env.IsDevelopment())
             {
                 using (var scope = app.ApplicationServices.CreateScope())
-                 {
-                     var seeder = scope.ServiceProvider.GetService<Seeder>();
-                     seeder.Seed().Wait();
-                 }
-                 app.UseDeveloperExceptionPage();
+                {
+                    var seeder = scope.ServiceProvider.GetService<Seeder>();
+                    seeder.Seed().Wait();
+                }
+                app.UseDeveloperExceptionPage();
             }
 
             //app.UseHttpsRedirection();
@@ -64,6 +75,9 @@ namespace HouseCleanersApi
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSwagger();
+            app.UseSwaggerUI(doc => doc.SwaggerEndpoint("/swagger/v1/swagger.json", "DocumentationApi v1"));
+            
             
            
 

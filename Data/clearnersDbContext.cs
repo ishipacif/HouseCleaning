@@ -32,6 +32,7 @@ namespace HouseCleanersApi.Data
             modelBuilder.Entity<Categories>(entity =>
             {
                 entity.HasKey(e => e.CategoryId);
+                entity.HasAlternateKey(e => e.CategoryName);
             });
 
             modelBuilder.Entity<Customers>(entity =>

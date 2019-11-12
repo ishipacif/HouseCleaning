@@ -7,9 +7,25 @@
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p="appsettings.json" t="Include" />
       <e p="bin" t="ExcludeRecursive" />
+      <e p="BusinessLayer" t="Include">
+        <e p="CategoriesRepo.cs" t="Include" />
+        <e p="CustomersRepo.cs" t="Include" />
+        <e p="GeneralRepository.cs" t="Include" />
+        <e p="InvoiceLinesRepo.cs" t="Include" />
+        <e p="InvoicesRepo.cs" t="Include" />
+        <e p="PlanningsRepo.cs" t="Include" />
+        <e p="ProfessionalRepo.cs" t="Include" />
+        <e p="RepositoryBase.cs" t="Include" />
+        <e p="ReservationsRepo.cs" t="Include" />
+        <e p="ServicesRep.cs" t="Include" />
+        <e p="StatusRepo.cs" t="Include" />
+      </e>
       <e p="Controllers" t="Include">
+        <e p="AdminController.cs" t="Include" />
+        <e p="AuthController.cs" t="Include" />
+        <e p="CustomerController.cs" t="Include" />
         <e p="HomeController.cs" t="Include" />
-        <e p="WeatherForecastController.cs" t="Include" />
+        <e p="ProfessionalController.cs" t="Include" />
       </e>
       <e p="Data" t="Include">
         <e p="Categories.cs" t="Include" />
@@ -36622,9 +36638,28 @@
         <e p="yarn.lock" t="Include" />
       </e>
       <e p="HouseCleanersApi.csproj" t="IncludeRecursive" />
+      <e p="Interfaces" t="Include">
+        <e p="ICategoriesRepo.cs" t="Include" />
+        <e p="IcustomersRepo.cs" t="Include" />
+        <e p="IGeneralRepository.cs" t="Include" />
+        <e p="IInvoiceLinesRepo.cs" t="Include" />
+        <e p="IInvoiceRepo.cs" t="Include" />
+        <e p="IPlanningsRepo.cs" t="Include" />
+        <e p="IProfessionalRepo.cs" t="Include" />
+        <e p="IRepositoryBase.cs" t="Include" />
+        <e p="IReservationsRepo.cs" t="Include" />
+        <e p="IServicesRepo.cs" t="Include" />
+        <e p="IStatusRepo.cs" t="Include" />
+      </e>
       <e p="Migrations" t="Include">
         <e p="20191107210750_initdb.cs" t="Include" />
         <e p="20191107210750_initdb.Designer.cs" t="Include" />
+        <e p="20191110163152_CorrectionCategory.cs" t="Include" />
+        <e p="20191110163152_CorrectionCategory.Designer.cs" t="Include" />
+        <e p="20191112211145_CorrectionUser.cs" t="Include" />
+        <e p="20191112211145_CorrectionUser.Designer.cs" t="Include" />
+        <e p="20191112212058_CorrectionUser2.cs" t="Include" />
+        <e p="20191112212058_CorrectionUser2.Designer.cs" t="Include" />
         <e p="clearnersDbContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="Models" t="Include">

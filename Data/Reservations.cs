@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HouseCleanersApi.Data
 {
@@ -11,8 +12,11 @@ namespace HouseCleanersApi.Data
         }
 
         public int ReservationId { get; set; }
+        [Required]
         public DateTime ReservationDate { get; set; }
+        [Required]
         public DateTime StartHour { get; set; }
+        [Required]
         public DateTime EndHour { get; set; }
         public int? ProfessionalId { get; set; }
         public int? CustomerId { get; set; }

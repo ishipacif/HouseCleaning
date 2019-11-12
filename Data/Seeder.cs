@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HouseCleanersApi.Models;
+using HouseCleanersApi.Data;
 using Microsoft.AspNetCore.Identity;
 
 namespace HouseCleanersApi.Data

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HouseCleanersApi.Data
 {
@@ -11,8 +12,11 @@ namespace HouseCleanersApi.Data
         }
 
         public int ServiceId { get; set; }
+        [Required]
         public string ServiceName { get; set; }
+        [Required]
         public string ServiceDescription { get; set; }
+        [Required]
         public string ServiceCommission { get; set; }
         public int? CategoryId1 { get; set; }
 

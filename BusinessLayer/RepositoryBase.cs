@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using HouseCleanersApi.Data;
+using HouseCleanersApi.Interfaces;
+
+namespace HouseCleanersApi.BusinessLayer
+
+{
+    public abstract class RepositoryBase <T> : IRepositoryBase<T> where T:class // pour que notre service implemente notre interface il doit aussi utilise les type generique T comme l'interface et il faut preciser que T doit etre une classe 
+    {
+        private readonly clearnersDbContext _context;
+
+        public RepositoryBase(clearnersDbContext context)
+        {
+            _context = context;
+        }
+        public IQueryable<T> GetAll()
+        {
+            return _context.Set<T>(); //pour retourner les DBsets (les modeles)
+        }
+
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> query)
+        {
+            return _context.Set<T>().Where(query);
+        }
+
+        public bool Create(T model)
+        {
+            try
+            {
+                _context.Set<T>().Add(model);
+            
+                return _context.SaveChanges() > 0;
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            
+        }
+
+        public bool CreateMany(IEnumerable<T> models)
+        {
+            _context.Set<T>().AddRange(models);
+            return _context.SaveChanges() > 0;
+        }
+
+        public bool Update(T model)
+        {
+            _context.Set<T>().Update(model);
+            return _context.SaveChanges() > 0 ;
+        }
+
+        public bool UpdateMany(IEnumerable<T> models)
+        {
+            _context.Set<T>().UpdateRange(models);
+            return _context.SaveChanges() > 0;
+        }
+
+        public bool Delete(T model)
+        {
+            _context.Set<T>().Remove(model);
+            return _context.SaveChanges() > 0;
+        }
+
+        public bool DeleteMany(IEnumerable<T> models)
+        {
+            _context.Set<T>().RemoveRange(models);
+            return _context.SaveChanges() > 0;
+        }
+    }
+}

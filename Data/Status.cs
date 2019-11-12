@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HouseCleanersApi.Data
 {
@@ -11,7 +12,9 @@ namespace HouseCleanersApi.Data
         }
 
         public int StatusId { get; set; }
+        [Required]
         public string StatusName { get; set; }
+        [Required]
         public string StatusDescription { get; set; }
 
         public virtual ICollection<Reservations> Reservations { get; set; }
