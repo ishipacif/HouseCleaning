@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace HouseCleanersApi.Data
 {
-    public partial class InvoiceLines
+    public partial class InvoiceLine
     {
         public int InvoicelineId { get; set; }
-        public int? InvoiceId1 { get; set; }
-        public int? ReservationId1 { get; set; }
+        public int? InvoiceId { get; set; }
+        public int? ReservationId { get; set; }
         public decimal HourCount { get; set; }
         public decimal HourPrice { get; set; }
         public decimal PourcentCommission { get; set; }
@@ -15,7 +15,7 @@ namespace HouseCleanersApi.Data
         public decimal CommissionTotal { get; set; }
         public decimal Amount { get; set; }
 
-        public virtual Invoices InvoiceId1Navigation { get; set; }
-        public virtual Reservations ReservationId1Navigation { get; set; }
+        public virtual Invoice Invoice { get; set; }
+        public virtual Reservation Reservation{ get; set; }
     }
 }

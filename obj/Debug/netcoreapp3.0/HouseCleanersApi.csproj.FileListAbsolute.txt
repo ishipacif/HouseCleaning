@@ -390,3 +390,11 @@
 /Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/Models/appsettings.Development.json
+/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/Microsoft.IdentityModel.Logging.dll
+/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/Microsoft.IdentityModel.Protocols.dll
+/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/Microsoft.IdentityModel.Tokens.dll
+/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/config.json

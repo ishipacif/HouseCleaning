@@ -16,14 +16,14 @@ namespace HouseCleanersApi.Controllers
         }
         [HttpGet]
         [Route("getAllCategory")]
-        public IActionResult GetAllCategories()
+        public IActionResult GetAllCategorie()
         {
             return new ObjectResult(_repository.categorie.GetAll());
         }
         
         [HttpPost]
         [Route("CreateCategory")]
-        public IActionResult CreateCategory([FromBody] Categories cat)
+        public IActionResult CreateCategory([FromBody] Categorie cat)
         {
             var c = _repository.categorie.Create(cat);
             return new ObjectResult(c); 

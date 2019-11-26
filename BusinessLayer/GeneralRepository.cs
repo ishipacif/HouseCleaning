@@ -17,6 +17,7 @@ namespace HouseCleanersApi.BusinessLayer
         private IPlanningsRepo _planning;
         private IReservationsRepo _reservation;
         private IStatusRepo _status;
+        private IProfessionalServiceRepo _professionalServices;
 
         public GeneralRepository(clearnersDbContext context)
         {
@@ -124,5 +125,18 @@ namespace HouseCleanersApi.BusinessLayer
 
             return _status;
         }}
+
+        public IProfessionalServiceRepo ProfessionalServices
+        {
+            get
+            {
+                if (_professionalServices==null)
+                {
+                    _professionalServices =  new ProfessionalServiceRepo(_context);
+                }
+
+                return _professionalServices;
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@ using HouseCleanersApi.Interfaces;
 
 namespace HouseCleanersApi.BusinessLayer
 {
-    public class CategoriesRepo : RepositoryBase<Categories>, ICategoriesRepo
+    public class CategoriesRepo : RepositoryBase<Categorie>, ICategoriesRepo
     {
         public CategoriesRepo(clearnersDbContext context) : base(context)
         {

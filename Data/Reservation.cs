@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HouseCleanersApi.Data
 {
-    public partial class Reservations
+    public partial class Reservation
     {
-        public Reservations()
+        public Reservation()
         {
-            InvoiceLines = new HashSet<InvoiceLines>();
+            InvoiceLines = new HashSet<InvoiceLine>();
         }
 
         public int ReservationId { get; set; }
@@ -23,10 +23,10 @@ namespace HouseCleanersApi.Data
         public int? JobServiceId { get; set; }
         public int? StatusId { get; set; }
 
-        public virtual Customers Customer { get; set; }
-        public virtual Services JobService { get; set; }
-        public virtual Professionals Professional { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Service JobService { get; set; }
+        public virtual Professional Professional { get; set; }
         public virtual Status Status { get; set; }
-        public virtual ICollection<InvoiceLines> InvoiceLines { get; set; }
+        public virtual ICollection<InvoiceLine> InvoiceLines { get; set; }
     }
 }

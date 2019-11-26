@@ -8,7 +8,7 @@ namespace HouseCleanersApi.Data
     {
         public Status()
         {
-            Reservations = new HashSet<Reservations>();
+            Reservations = new HashSet<Reservation>();
         }
 
         public int StatusId { get; set; }
@@ -17,6 +17,6 @@ namespace HouseCleanersApi.Data
         [Required]
         public string StatusDescription { get; set; }
 
-        public virtual ICollection<Reservations> Reservations { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

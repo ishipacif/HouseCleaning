@@ -15,11 +15,13 @@
         <e p="InvoicesRepo.cs" t="Include" />
         <e p="PlanningsRepo.cs" t="Include" />
         <e p="ProfessionalRepo.cs" t="Include" />
+        <e p="ProfessionalService.cs" t="Include" />
         <e p="RepositoryBase.cs" t="Include" />
         <e p="ReservationsRepo.cs" t="Include" />
         <e p="ServicesRep.cs" t="Include" />
         <e p="StatusRepo.cs" t="Include" />
       </e>
+      <e p="config.json" t="Include" />
       <e p="Controllers" t="Include">
         <e p="AdminController.cs" t="Include" />
         <e p="AuthController.cs" t="Include" />
@@ -28,13 +30,14 @@
         <e p="ProfessionalController.cs" t="Include" />
       </e>
       <e p="Data" t="Include">
-        <e p="Categories.cs" t="Include" />
+        <e p="Categorie.cs" t="Include" />
         <e p="clearnersDbContext.cs" t="Include" />
-        <e p="Customers.cs" t="Include" />
-        <e p="InvoiceLines.cs" t="Include" />
-        <e p="Invoices.cs" t="Include" />
-        <e p="Plannings.cs" t="Include" />
-        <e p="Professionals.cs" t="Include" />
+        <e p="Customer.cs" t="Include" />
+        <e p="Invoice.cs" t="Include" />
+        <e p="InvoiceLine.cs" t="Include" />
+        <e p="Planning.cs" t="Include" />
+        <e p="Professional.cs" t="Include" />
+        <e p="ProfessionalService.cs" t="Include" />
         <e p="Reservations.cs" t="Include" />
         <e p="Roles.cs" t="Include" />
         <e p="Seeder.cs" t="Include" />
@@ -36646,6 +36649,7 @@
         <e p="IInvoiceRepo.cs" t="Include" />
         <e p="IPlanningsRepo.cs" t="Include" />
         <e p="IProfessionalRepo.cs" t="Include" />
+        <e p="IProfessionalService.cs" t="Include" />
         <e p="IRepositoryBase.cs" t="Include" />
         <e p="IReservationsRepo.cs" t="Include" />
         <e p="IServicesRepo.cs" t="Include" />
@@ -36660,6 +36664,12 @@
         <e p="20191112211145_CorrectionUser.Designer.cs" t="Include" />
         <e p="20191112212058_CorrectionUser2.cs" t="Include" />
         <e p="20191112212058_CorrectionUser2.Designer.cs" t="Include" />
+        <e p="20191123213720_professionalServices.cs" t="Include" />
+        <e p="20191123213720_professionalServices.Designer.cs" t="Include" />
+        <e p="20191126125433_correction.cs" t="Include" />
+        <e p="20191126125433_correction.Designer.cs" t="Include" />
+        <e p="20191126140345_correctionservicepro.cs" t="Include" />
+        <e p="20191126140345_correctionservicepro.Designer.cs" t="Include" />
         <e p="clearnersDbContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="Models" t="Include">
@@ -36668,12 +36678,14 @@
         <e p="Customers.cs" t="Include" />
         <e p="InvoiceLines.cs" t="Include" />
         <e p="Invoices.cs" t="Include" />
+        <e p="LoginModel.cs" t="Include" />
         <e p="Plannings.cs" t="Include" />
         <e p="Professionals.cs" t="Include" />
         <e p="Reservations.cs" t="Include" />
         <e p="Roles.cs" t="Include" />
         <e p="Services.cs" t="Include" />
         <e p="Status.cs" t="Include" />
+        <e p="TokensSetting.cs" t="Include" />
         <e p="User.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive">

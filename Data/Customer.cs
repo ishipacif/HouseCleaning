@@ -5,16 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HouseCleanersApi.Data
 {
-    public partial class Professionals
+    public partial class Customer
     {
-        public Professionals()
+        public Customer()
         {
-            Invoices = new HashSet<Invoices>();
-            Plannings = new HashSet<Plannings>();
-            Reservations = new HashSet<Reservations>();
+            Invoices = new HashSet<Invoice>();
+            Reservations = new HashSet<Reservation>();
         }
 
-        public int ProfessionalId { get; set; }
+        public int CustomerId { get; set; }
         [Required]
         public string FirstName { get; set; }
         [Required]
@@ -31,20 +30,16 @@ namespace HouseCleanersApi.Data
         public string City { get; set; }
         [Required]
         public int PostCode { get; set; }
+        
         public string GeoCoords { get; set; }
         public string Picture { get; set; }
         public User user { get; set; }
         public string userId { get; set; }
-        
         [NotMapped]
         public string password { get; set; }
         [NotMapped]
-        
         public string passwordComfirm { get; set; }
-        
-
-        public virtual ICollection<Invoices> Invoices { get; set; }
-        public virtual ICollection<Plannings> Plannings { get; set; }
-        public virtual ICollection<Reservations> Reservations { get; set; }
+        public virtual ICollection<Invoice> Invoices { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

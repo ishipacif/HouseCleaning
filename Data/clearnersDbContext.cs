@@ -14,39 +14,41 @@ namespace HouseCleanersApi.Data
 
         }
         
-         public virtual DbSet<Categories> Categories { get; set; }
-                public virtual DbSet<Customers> Customers { get; set; }
-                public virtual DbSet<InvoiceLines> InvoiceLines { get; set; }
-                public virtual DbSet<Invoices> Invoices { get; set; }
-                public virtual DbSet<Plannings> Plannings { get; set; }
-                public virtual DbSet<Professionals> Professionals { get; set; }
-                public virtual DbSet<Reservations> Reservations { get; set; }
-                public virtual DbSet<Services> Services { get; set; }
+         public virtual DbSet<Categorie> Categories { get; set; }
+                public virtual DbSet<Customer> Customers { get; set; }
+                public virtual DbSet<InvoiceLine> InvoiceLines { get; set; }
+                public virtual DbSet<Invoice> Invoices { get; set; }
+                public virtual DbSet<Planning> Plannings { get; set; }
+                public virtual DbSet<Professional> Professionals { get; set; }
+                public virtual DbSet<Reservation> Reservations { get; set; }
+                public virtual DbSet<Service> Services { get; set; }
                 public virtual DbSet<Status> Status { get; set; }
+                public virtual DbSet<ProfessionalService> ProfessionalServices { get; set; }
+                
                 
                 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
            
-            modelBuilder.Entity<Categories>(entity =>
+            modelBuilder.Entity<Categorie>(entity =>
             {
                 entity.HasKey(e => e.CategoryId);
                 entity.HasAlternateKey(e => e.CategoryName);
             });
 
-            modelBuilder.Entity<Customers>(entity =>
+            modelBuilder.Entity<Customer>(entity =>
             {
                 entity.HasKey(e => e.CustomerId);
             });
 
-            modelBuilder.Entity<InvoiceLines>(entity =>
+            modelBuilder.Entity<InvoiceLine>(entity =>
             {
                 entity.HasKey(e => e.InvoicelineId);
 
-                entity.HasIndex(e => e.InvoiceId1);
+                entity.HasIndex(e => e.InvoiceId);
 
-                entity.HasIndex(e => e.ReservationId1);
+                entity.HasIndex(e => e.ReservationId);
 
                 entity.Property(e => e.Amount).HasColumnType("numeric");
 
@@ -60,51 +62,51 @@ namespace HouseCleanersApi.Data
 
                 entity.Property(e => e.PreCommission).HasColumnType("numeric");
 
-                entity.HasOne(d => d.InvoiceId1Navigation)
+                entity.HasOne(d => d.Invoice)
                     .WithMany(p => p.InvoiceLines)
-                    .HasForeignKey(d => d.InvoiceId1);
+                    .HasForeignKey(d => d.InvoiceId);
 
-                entity.HasOne(d => d.ReservationId1Navigation)
+                entity.HasOne(d => d.Reservation)
                     .WithMany(p => p.InvoiceLines)
-                    .HasForeignKey(d => d.ReservationId1);
+                    .HasForeignKey(d => d.ReservationId);
             });
 
-            modelBuilder.Entity<Invoices>(entity =>
+            modelBuilder.Entity<Invoice>(entity =>
             {
                 entity.HasKey(e => e.InvoiceId);
 
-                entity.HasIndex(e => e.CustomerId1);
+                entity.HasIndex(e => e.CustomerId);
 
-                entity.HasIndex(e => e.ProfessionalId1);
+                entity.HasIndex(e => e.ProfessionalId);
 
                 entity.Property(e => e.InvoiceAmountTotal).HasColumnType("numeric");
 
-                entity.HasOne(d => d.CustomerId1Navigation)
+                entity.HasOne(d => d.customer)
                     .WithMany(p => p.Invoices)
-                    .HasForeignKey(d => d.CustomerId1);
+                    .HasForeignKey(d => d.CustomerId);
 
-                entity.HasOne(d => d.ProfessionalId1Navigation)
+                entity.HasOne(d => d.Professional)
                     .WithMany(p => p.Invoices)
-                    .HasForeignKey(d => d.ProfessionalId1);
+                    .HasForeignKey(d => d.ProfessionalId);
             });
 
-            modelBuilder.Entity<Plannings>(entity =>
+            modelBuilder.Entity<Planning>(entity =>
             {
                 entity.HasKey(e => e.PlaningId);
 
-                entity.HasIndex(e => e.ProfessionalId1);
+                entity.HasIndex(e => e.ProfessionalId);
 
-                entity.HasOne(d => d.ProfessionalId1Navigation)
+                entity.HasOne(d => d.Professionnal)
                     .WithMany(p => p.Plannings)
-                    .HasForeignKey(d => d.ProfessionalId1);
+                    .HasForeignKey(d => d.ProfessionalId);
             });
 
-            modelBuilder.Entity<Professionals>(entity =>
+            modelBuilder.Entity<Professional>(entity =>
             {
                 entity.HasKey(e => e.ProfessionalId);
             });
 
-            modelBuilder.Entity<Reservations>(entity =>
+            modelBuilder.Entity<Reservation>(entity =>
             {
                 entity.HasKey(e => e.ReservationId);
 
@@ -129,22 +131,38 @@ namespace HouseCleanersApi.Data
                 entity.HasOne(d => d.Professional)
                     .WithMany(p => p.Reservations)
                     .HasForeignKey(d => d.ProfessionalId);
-
+                
                 entity.HasOne(d => d.Status)
                     .WithMany(p => p.Reservations)
                     .HasForeignKey(d => d.StatusId);
             });
 
-            modelBuilder.Entity<Services>(entity =>
+            modelBuilder.Entity<Service>(entity =>
             {
                 entity.HasKey(e => e.ServiceId);
 
-                entity.HasIndex(e => e.CategoryId1);
+                entity.HasIndex(e => e.CategoryId);
 
-                entity.HasOne(d => d.CategoryId1Navigation)
+                entity.HasOne(d => d.Category)
                     .WithMany(p => p.Services)
-                    .HasForeignKey(d => d.CategoryId1);
+                    .HasForeignKey(d => d.CategoryId);
             });
+            modelBuilder.Entity<ProfessionalService>()
+                .HasKey(e => new
+                {
+                    e.professionalId,
+                    e.serviceId
+                });
+
+          /*  modelBuilder.Entity<ProfessionalServices>()
+                .HasOne(e => e.professional)
+                .WithMany(s => s.services);
+            
+            modelBuilder.Entity<ProfessionalServices>()
+                .HasOne(e => e.service)
+                .WithMany(s => s.Professionals);
+
+    */
 
            base.OnModelCreating(modelBuilder);
         }

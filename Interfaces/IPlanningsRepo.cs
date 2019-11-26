@@ -2,7 +2,7 @@ using HouseCleanersApi.Data;
 
 namespace HouseCleanersApi.Interfaces
 {
-    public interface IPlanningsRepo : IRepositoryBase<Plannings>
+    public interface IPlanningsRepo : IRepositoryBase<Planning>
     {
         
     }

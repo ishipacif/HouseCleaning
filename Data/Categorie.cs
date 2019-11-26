@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HouseCleanersApi.Data
 {
-    public partial class Categories
+    public partial class Categorie
     {
-        public Categories()
+        public Categorie()
         {
-            Services = new HashSet<Services>();
+            Services = new HashSet<Service>();
         }
 
         public int CategoryId { get; set; }
@@ -17,6 +17,6 @@ namespace HouseCleanersApi.Data
         [Required]
         public string CategoryDescription { get; set; }
 
-        public virtual ICollection<Services> Services { get; set; }
+        public virtual ICollection<Service> Services { get; set; }
     }
 }

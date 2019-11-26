@@ -4,13 +4,14 @@ using System.Linq;
 using System.Linq.Expressions;
 using HouseCleanersApi.Data;
 using HouseCleanersApi.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace HouseCleanersApi.BusinessLayer
 
 {
     public abstract class RepositoryBase <T> : IRepositoryBase<T> where T:class // pour que notre service implemente notre interface il doit aussi utilise les type generique T comme l'interface et il faut preciser que T doit etre une classe 
     {
-        private readonly clearnersDbContext _context;
+        protected readonly clearnersDbContext _context;
 
         public RepositoryBase(clearnersDbContext context)
         {
@@ -18,7 +19,8 @@ namespace HouseCleanersApi.BusinessLayer
         }
         public IQueryable<T> GetAll()
         {
-            return _context.Set<T>(); //pour retourner les DBsets (les modeles)
+            
+            return _context.Set<T>().AsNoTracking(); //pour retourner les DBsets (les modeles), as not tracking pour ne pas recuperer les sous objets lors de la recuperation des données
         }
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> query)

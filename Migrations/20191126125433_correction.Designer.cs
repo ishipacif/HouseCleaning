@@ -3,15 +3,17 @@ using System;
 using HouseCleanersApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HouseCleanersApi.Migrations
 {
     [DbContext(typeof(clearnersDbContext))]
-    partial class clearnersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191126125433_correction")]
+    partial class correction
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -319,9 +321,6 @@ namespace HouseCleanersApi.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("ProfessionalsProfessionalId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("ServiceCommission")
                         .IsRequired()
                         .HasColumnType("text");
@@ -337,8 +336,6 @@ namespace HouseCleanersApi.Migrations
                     b.HasKey("ServiceId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("ProfessionalsProfessionalId");
 
                     b.ToTable("Services");
                 });
@@ -605,7 +602,7 @@ namespace HouseCleanersApi.Migrations
             modelBuilder.Entity("HouseCleanersApi.Data.ProfessionalServices", b =>
                 {
                     b.HasOne("HouseCleanersApi.Data.Professionals", "professional")
-                        .WithMany()
+                        .WithMany("services")
                         .HasForeignKey("professionalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -648,10 +645,6 @@ namespace HouseCleanersApi.Migrations
                     b.HasOne("HouseCleanersApi.Data.Categories", "Category")
                         .WithMany("Services")
                         .HasForeignKey("CategoryId");
-
-                    b.HasOne("HouseCleanersApi.Data.Professionals", null)
-                        .WithMany("services")
-                        .HasForeignKey("ProfessionalsProfessionalId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

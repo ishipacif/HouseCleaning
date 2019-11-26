@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HouseCleanersApi.Data
 {
-    public partial class Plannings
+    public partial class Planning
     {
         public int PlaningId { get; set; }
         [Required]
@@ -19,8 +19,9 @@ namespace HouseCleanersApi.Data
         public TimeSpan StartBreakTime { get; set; }
         [Required]
         public TimeSpan EndBreakTime { get; set; }
-        public int? ProfessionalId1 { get; set; }
+        public int? ProfessionalId { get; set; }
 
-        public virtual Professionals ProfessionalId1Navigation { get; set; }
+        public virtual Professional Professionnal { get; set; }
+        
     }
 }

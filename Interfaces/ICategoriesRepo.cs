@@ -2,7 +2,7 @@ using HouseCleanersApi.Data;
 
 namespace HouseCleanersApi.Interfaces
 {
-    public interface ICategoriesRepo : IRepositoryBase<Categories>
+    public interface ICategoriesRepo : IRepositoryBase<Categorie>
     {
         
     }

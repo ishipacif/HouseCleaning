@@ -3,15 +3,17 @@ using System;
 using HouseCleanersApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HouseCleanersApi.Migrations
 {
     [DbContext(typeof(clearnersDbContext))]
-    partial class clearnersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191123213720_professionalServices")]
+    partial class professionalServices
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,7 +144,7 @@ namespace HouseCleanersApi.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int?>("CustomerId1")
                         .HasColumnType("integer");
 
                     b.Property<decimal>("InvoiceAmountTotal")
@@ -151,14 +153,14 @@ namespace HouseCleanersApi.Migrations
                     b.Property<DateTime>("InvoiceDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("ProfessionalId")
+                    b.Property<int?>("ProfessionalId1")
                         .HasColumnType("integer");
 
                     b.HasKey("InvoiceId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerId1");
 
-                    b.HasIndex("ProfessionalId");
+                    b.HasIndex("ProfessionalId1");
 
                     b.ToTable("Invoices");
                 });
@@ -179,7 +181,7 @@ namespace HouseCleanersApi.Migrations
                     b.Property<DateTime>("PlaningDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("ProfessionalId")
+                    b.Property<int?>("ProfessionalId1")
                         .HasColumnType("integer");
 
                     b.Property<TimeSpan>("StartBreakTime")
@@ -193,7 +195,7 @@ namespace HouseCleanersApi.Migrations
 
                     b.HasKey("PlaningId");
 
-                    b.HasIndex("ProfessionalId");
+                    b.HasIndex("ProfessionalId1");
 
                     b.ToTable("Plannings");
                 });
@@ -316,10 +318,7 @@ namespace HouseCleanersApi.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("ProfessionalsProfessionalId")
+                    b.Property<int?>("CategoryId1")
                         .HasColumnType("integer");
 
                     b.Property<string>("ServiceCommission")
@@ -336,9 +335,7 @@ namespace HouseCleanersApi.Migrations
 
                     b.HasKey("ServiceId");
 
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("ProfessionalsProfessionalId");
+                    b.HasIndex("CategoryId1");
 
                     b.ToTable("Services");
                 });
@@ -575,37 +572,37 @@ namespace HouseCleanersApi.Migrations
 
             modelBuilder.Entity("HouseCleanersApi.Data.InvoiceLines", b =>
                 {
-                    b.HasOne("HouseCleanersApi.Data.Invoices", "Invoice")
+                    b.HasOne("HouseCleanersApi.Data.Invoices", "InvoiceId1Navigation")
                         .WithMany("InvoiceLines")
                         .HasForeignKey("InvoiceId1");
 
-                    b.HasOne("HouseCleanersApi.Data.Reservations", "Reservation")
+                    b.HasOne("HouseCleanersApi.Data.Reservations", "ReservationId1Navigation")
                         .WithMany("InvoiceLines")
                         .HasForeignKey("ReservationId1");
                 });
 
             modelBuilder.Entity("HouseCleanersApi.Data.Invoices", b =>
                 {
-                    b.HasOne("HouseCleanersApi.Data.Customers", "customer")
+                    b.HasOne("HouseCleanersApi.Data.Customers", "CustomerId1Navigation")
                         .WithMany("Invoices")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId1");
 
-                    b.HasOne("HouseCleanersApi.Data.Professionals", "Professional")
+                    b.HasOne("HouseCleanersApi.Data.Professionals", "ProfessionalId1Navigation")
                         .WithMany("Invoices")
-                        .HasForeignKey("ProfessionalId");
+                        .HasForeignKey("ProfessionalId1");
                 });
 
             modelBuilder.Entity("HouseCleanersApi.Data.Plannings", b =>
                 {
-                    b.HasOne("HouseCleanersApi.Data.Professionals", "Professionnal")
+                    b.HasOne("HouseCleanersApi.Data.Professionals", "ProfessionalId1Navigation")
                         .WithMany("Plannings")
-                        .HasForeignKey("ProfessionalId");
+                        .HasForeignKey("ProfessionalId1");
                 });
 
             modelBuilder.Entity("HouseCleanersApi.Data.ProfessionalServices", b =>
                 {
                     b.HasOne("HouseCleanersApi.Data.Professionals", "professional")
-                        .WithMany()
+                        .WithMany("services")
                         .HasForeignKey("professionalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -645,13 +642,9 @@ namespace HouseCleanersApi.Migrations
 
             modelBuilder.Entity("HouseCleanersApi.Data.Services", b =>
                 {
-                    b.HasOne("HouseCleanersApi.Data.Categories", "Category")
+                    b.HasOne("HouseCleanersApi.Data.Categories", "CategoryId1Navigation")
                         .WithMany("Services")
-                        .HasForeignKey("CategoryId");
-
-                    b.HasOne("HouseCleanersApi.Data.Professionals", null)
-                        .WithMany("services")
-                        .HasForeignKey("ProfessionalsProfessionalId");
+                        .HasForeignKey("CategoryId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
