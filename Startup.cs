@@ -25,6 +25,8 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using Seeder = HouseCleanersApi.Data.Seeder;
 using User = HouseCleanersApi.Data.User;
+using AutoMapper;
+
 
 
 namespace HouseCleanersApi
@@ -68,6 +70,7 @@ namespace HouseCleanersApi
                        };
                    }
                );
+            services.AddAutoMapper(typeof(Startup));
             services.AddTransient<Seeder>();
             services.AddScoped<IGeneralRepository, GeneralRepository>(); // activation le service des service, en appelant l'interface on instancie la classe. 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);

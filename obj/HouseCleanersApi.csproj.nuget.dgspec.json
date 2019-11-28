@@ -1,27 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/HouseCleanersApi.csproj": {}
+    "C:\\Users\\jolie\\Desktop\\HouseCleaning\\HouseCleanersApi.csproj": {}
   },
   "projects": {
-    "/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/HouseCleanersApi.csproj": {
+    "C:\\Users\\jolie\\Desktop\\HouseCleaning\\HouseCleanersApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/HouseCleanersApi.csproj",
+        "projectUniqueName": "C:\\Users\\jolie\\Desktop\\HouseCleaning\\HouseCleanersApi.csproj",
         "projectName": "HouseCleanersApi",
-        "projectPath": "/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/HouseCleanersApi.csproj",
-        "packagesPath": "/Users/ishipacif/.nuget/packages/",
-        "outputPath": "/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/obj/",
+        "projectPath": "C:\\Users\\jolie\\Desktop\\HouseCleaning\\HouseCleanersApi.csproj",
+        "packagesPath": "C:\\Users\\jolie\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jolie\\Desktop\\HouseCleaning\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "/Users/ishipacif/.config/NuGet/NuGet.Config"
+          "C:\\Users\\jolie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {},
-          "https://nuget.telerik.com/nuget": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.0": {
@@ -37,6 +40,10 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[3.0.0, )"
@@ -83,7 +90,16 @@
             "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
