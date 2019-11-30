@@ -15,7 +15,7 @@
         <e p="InvoicesRepo.cs" t="Include" />
         <e p="PlanningsRepo.cs" t="Include" />
         <e p="ProfessionalRepo.cs" t="Include" />
-        <e p="ProfessionalService.cs" t="Include" />
+        <e p="ProfessionalServiceRepo.cs" t="Include" />
         <e p="RepositoryBase.cs" t="Include" />
         <e p="ReservationsRepo.cs" t="Include" />
         <e p="ServicesRep.cs" t="Include" />
@@ -38,10 +38,10 @@
         <e p="Planning.cs" t="Include" />
         <e p="Professional.cs" t="Include" />
         <e p="ProfessionalService.cs" t="Include" />
-        <e p="Reservations.cs" t="Include" />
+        <e p="Reservation.cs" t="Include" />
         <e p="Roles.cs" t="Include" />
         <e p="Seeder.cs" t="Include" />
-        <e p="Services.cs" t="Include" />
+        <e p="Service.cs" t="Include" />
         <e p="Status.cs" t="Include" />
         <e p="User.cs" t="Include" />
       </e>
@@ -36649,7 +36649,7 @@
         <e p="IInvoiceRepo.cs" t="Include" />
         <e p="IPlanningsRepo.cs" t="Include" />
         <e p="IProfessionalRepo.cs" t="Include" />
-        <e p="IProfessionalService.cs" t="Include" />
+        <e p="IProfessionalServiceRepo.cs" t="Include" />
         <e p="IRepositoryBase.cs" t="Include" />
         <e p="IReservationsRepo.cs" t="Include" />
         <e p="IServicesRepo.cs" t="Include" />
@@ -36670,6 +36670,8 @@
         <e p="20191126125433_correction.Designer.cs" t="Include" />
         <e p="20191126140345_correctionservicepro.cs" t="Include" />
         <e p="20191126140345_correctionservicepro.Designer.cs" t="Include" />
+        <e p="20191126162257_renamingTables.cs" t="Include" />
+        <e p="20191126162257_renamingTables.Designer.cs" t="Include" />
         <e p="clearnersDbContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="Models" t="Include">
