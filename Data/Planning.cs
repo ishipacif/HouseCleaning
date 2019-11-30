@@ -6,22 +6,22 @@ namespace HouseCleanersApi.Data
 {
     public partial class Planning
     {
-        public int PlaningId { get; set; }
+        public int planingId { get; set; }
         [Required]
-        public DateTime PlaningDate { get; set; }
+        public DateTime planingDate { get; set; }
         [Required]
-        public DateTime StartHour { get; set; }
+        public DateTime startHour { get; set; }
         [Required]
-        public DateTime EndHour { get; set; }
+        public DateTime endHour { get; set; }
         [Required]
-        public TimeSpan TimeSlot { get; set; }
+        public TimeSpan timeSlot { get; set; }
         [Required]
-        public TimeSpan StartBreakTime { get; set; }
+        public TimeSpan startBreakTime { get; set; }
         [Required]
-        public TimeSpan EndBreakTime { get; set; }
-        public int? ProfessionalId { get; set; }
+        public TimeSpan endBreakTime { get; set; }
+        public int? professionalId { get; set; }
 
-        public virtual Professional Professionnal { get; set; }
+        public virtual Professional professionnal { get; set; }
         
     }
 }

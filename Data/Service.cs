@@ -8,22 +8,22 @@ namespace HouseCleanersApi.Data
     {
         public Service()
         {
-            Reservations = new HashSet<Reservation>();
-            Professionals = new HashSet<ProfessionalService>();
+            reservations = new HashSet<Reservation>();
+            professionals = new HashSet<ProfessionalService>();
             
         }
 
-        public int ServiceId { get; set; }
+        public int serviceId { get; set; }
         [Required]
-        public string ServiceName { get; set; }
+        public string serviceName { get; set; }
         [Required]
-        public string ServiceDescription { get; set; }
+        public string serviceDescription { get; set; }
         [Required]
-        public string ServiceCommission { get; set; }
-        public int? CategoryId { get; set; }
+        public string serviceCommission { get; set; }
+        public int? categoryId { get; set; }
 
-        public virtual Categorie Category { get; set; }
-        public virtual ICollection<Reservation> Reservations { get; set; }
-        public virtual IEnumerable<ProfessionalService> Professionals { get; set; }
+        public virtual Categorie category { get; set; }
+        public virtual ICollection<Reservation> reservations { get; set; }
+        public virtual IEnumerable<ProfessionalService> professionals { get; set; }
     }
 }

@@ -33,119 +33,119 @@ namespace HouseCleanersApi.Data
            
             modelBuilder.Entity<Categorie>(entity =>
             {
-                entity.HasKey(e => e.CategoryId);
-                entity.HasAlternateKey(e => e.CategoryName);
+                entity.HasKey(e => e.categoryId);
+                entity.HasIndex(e => e.categoryName).IsUnique(true);
             });
 
             modelBuilder.Entity<Customer>(entity =>
             {
-                entity.HasKey(e => e.CustomerId);
+                entity.HasKey(e => e.customerId);
             });
 
             modelBuilder.Entity<InvoiceLine>(entity =>
             {
-                entity.HasKey(e => e.InvoicelineId);
+                entity.HasKey(e => e.invoicelineId);
 
-                entity.HasIndex(e => e.InvoiceId);
+                entity.HasIndex(e => e.invoiceId);
 
-                entity.HasIndex(e => e.ReservationId);
+                entity.HasIndex(e => e.reservationId);
 
-                entity.Property(e => e.Amount).HasColumnType("numeric");
+                entity.Property(e => e.amount).HasColumnType("numeric");
 
-                entity.Property(e => e.CommissionTotal).HasColumnType("numeric");
+                entity.Property(e => e.commissionTotal).HasColumnType("numeric");
 
-                entity.Property(e => e.HourCount).HasColumnType("numeric");
+                entity.Property(e => e.hourCount).HasColumnType("numeric");
 
-                entity.Property(e => e.HourPrice).HasColumnType("numeric");
+                entity.Property(e => e.hourPrice).HasColumnType("numeric");
 
-                entity.Property(e => e.PourcentCommission).HasColumnType("numeric");
+                entity.Property(e => e.pourcentCommission).HasColumnType("numeric");
 
-                entity.Property(e => e.PreCommission).HasColumnType("numeric");
+                entity.Property(e => e.preCommission).HasColumnType("numeric");
 
-                entity.HasOne(d => d.Invoice)
-                    .WithMany(p => p.InvoiceLines)
-                    .HasForeignKey(d => d.InvoiceId);
+                entity.HasOne(d => d.invoice)
+                    .WithMany(p => p.invoiceLines)
+                    .HasForeignKey(d => d.invoiceId);
 
-                entity.HasOne(d => d.Reservation)
-                    .WithMany(p => p.InvoiceLines)
-                    .HasForeignKey(d => d.ReservationId);
+                entity.HasOne(d => d.reservation)
+                    .WithMany(p => p.invoiceLines)
+                    .HasForeignKey(d => d.reservationId);
             });
 
             modelBuilder.Entity<Invoice>(entity =>
             {
-                entity.HasKey(e => e.InvoiceId);
+                entity.HasKey(e => e.invoiceId);
 
-                entity.HasIndex(e => e.CustomerId);
+                entity.HasIndex(e => e.customerId);
 
-                entity.HasIndex(e => e.ProfessionalId);
+                entity.HasIndex(e => e.professionalId);
 
-                entity.Property(e => e.InvoiceAmountTotal).HasColumnType("numeric");
+                entity.Property(e => e.invoiceAmountTotal).HasColumnType("numeric");
 
                 entity.HasOne(d => d.customer)
                     .WithMany(p => p.Invoices)
-                    .HasForeignKey(d => d.CustomerId);
+                    .HasForeignKey(d => d.customerId);
 
-                entity.HasOne(d => d.Professional)
-                    .WithMany(p => p.Invoices)
-                    .HasForeignKey(d => d.ProfessionalId);
+                entity.HasOne(d => d.professional)
+                    .WithMany(p => p.invoices)
+                    .HasForeignKey(d => d.professionalId);
             });
 
             modelBuilder.Entity<Planning>(entity =>
             {
-                entity.HasKey(e => e.PlaningId);
+                entity.HasKey(e => e.planingId);
 
-                entity.HasIndex(e => e.ProfessionalId);
+                entity.HasIndex(e => e.professionalId);
 
-                entity.HasOne(d => d.Professionnal)
-                    .WithMany(p => p.Plannings)
-                    .HasForeignKey(d => d.ProfessionalId);
+                entity.HasOne(d => d.professionnal)
+                    .WithMany(p => p.plannings)
+                    .HasForeignKey(d => d.professionalId);
             });
 
             modelBuilder.Entity<Professional>(entity =>
             {
-                entity.HasKey(e => e.ProfessionalId);
+                entity.HasKey(e => e.professionalId);
             });
 
             modelBuilder.Entity<Reservation>(entity =>
             {
-                entity.HasKey(e => e.ReservationId);
+                entity.HasKey(e => e.reservationId);
 
-                entity.HasIndex(e => e.CustomerId);
+                entity.HasIndex(e => e.customerId);
 
-                entity.HasIndex(e => e.JobServiceId);
+                entity.HasIndex(e => e.jobServiceId);
 
-                entity.HasIndex(e => e.ProfessionalId);
+                entity.HasIndex(e => e.professionalId);
 
-                entity.HasIndex(e => e.StatusId);
+                entity.HasIndex(e => e.statusId);
 
-                entity.Property(e => e.JobServiceId).HasColumnName("jobServiceId");
+                entity.Property(e => e.jobServiceId).HasColumnName("jobServiceId");
 
-                entity.HasOne(d => d.Customer)
+                entity.HasOne(d => d.customer)
                     .WithMany(p => p.Reservations)
-                    .HasForeignKey(d => d.CustomerId);
+                    .HasForeignKey(d => d.customerId);
 
-                entity.HasOne(d => d.JobService)
-                    .WithMany(p => p.Reservations)
-                    .HasForeignKey(d => d.JobServiceId);
+                entity.HasOne(d => d.jobService)
+                    .WithMany(p => p.reservations)
+                    .HasForeignKey(d => d.jobServiceId);
 
-                entity.HasOne(d => d.Professional)
-                    .WithMany(p => p.Reservations)
-                    .HasForeignKey(d => d.ProfessionalId);
+                entity.HasOne(d => d.professional)
+                    .WithMany(p => p.reservations)
+                    .HasForeignKey(d => d.professionalId);
                 
-                entity.HasOne(d => d.Status)
-                    .WithMany(p => p.Reservations)
-                    .HasForeignKey(d => d.StatusId);
+                entity.HasOne(d => d.status)
+                    .WithMany(p => p.reservations)
+                    .HasForeignKey(d => d.statusId);
             });
 
             modelBuilder.Entity<Service>(entity =>
             {
-                entity.HasKey(e => e.ServiceId);
+                entity.HasKey(e => e.serviceId);
 
-                entity.HasIndex(e => e.CategoryId);
+                entity.HasIndex(e => e.categoryId);
 
-                entity.HasOne(d => d.Category)
-                    .WithMany(p => p.Services)
-                    .HasForeignKey(d => d.CategoryId);
+                entity.HasOne(d => d.category)
+                    .WithMany(p => p.services)
+                    .HasForeignKey(d => d.categoryId);
             });
             modelBuilder.Entity<ProfessionalService>()
                 .HasKey(e => new

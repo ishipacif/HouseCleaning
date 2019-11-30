@@ -9,32 +9,32 @@ namespace HouseCleanersApi.Data
     {
         public Professional()
         {
-            Invoices = new HashSet<Invoice>();
-            Plannings = new HashSet<Planning>();
-            Reservations = new HashSet<Reservation>();
+            invoices = new HashSet<Invoice>();
+            plannings = new HashSet<Planning>();
+            reservations = new HashSet<Reservation>();
             services = new List<Service>();
             
         }
 
-        public int ProfessionalId { get; set; }
+        public int professionalId { get; set; }
         [Required]
-        public string FirstName { get; set; }
+        public string firstName { get; set; }
         [Required]
-        public string LastName { get; set; }
+        public string lastName { get; set; }
         [Required]
-        public string Email { get; set; }
+        public string email { get; set; }
         [Required]
-        public string PhoneNumber { get; set; }
+        public string phoneNumber { get; set; }
         [Required]
-        public string StreetName { get; set; }
+        public string streetName { get; set; }
         [Required]
-        public string PlotNumber { get; set; }
+        public string plotNumber { get; set; }
         [Required]
-        public string City { get; set; }
+        public string city { get; set; }
         [Required]
-        public int PostCode { get; set; }
-        public string GeoCoords { get; set; }
-        public string Picture { get; set; }
+        public int postCode { get; set; }
+        public string geoCoords { get; set; }
+        public string picture { get; set; }
         public User user { get; set; }
         public string userId { get; set; }
         
@@ -45,9 +45,9 @@ namespace HouseCleanersApi.Data
         public string passwordComfirm { get; set; }
         
 
-        public virtual ICollection<Invoice> Invoices { get; set; }
-        public virtual ICollection<Planning> Plannings { get; set; }
-        public virtual ICollection<Reservation> Reservations { get; set; }
+        public virtual ICollection<Invoice> invoices { get; set; }
+        public virtual ICollection<Planning> plannings { get; set; }
+        public virtual ICollection<Reservation> reservations { get; set; }
         public virtual IEnumerable<Service> services { get; set; }
     }
 }

@@ -8,25 +8,25 @@ namespace HouseCleanersApi.Data
     {
         public Reservation()
         {
-            InvoiceLines = new HashSet<InvoiceLine>();
+            invoiceLines = new HashSet<InvoiceLine>();
         }
 
-        public int ReservationId { get; set; }
+        public int reservationId { get; set; }
         [Required]
-        public DateTime ReservationDate { get; set; }
+        public DateTime reservationDate { get; set; }
         [Required]
-        public DateTime StartHour { get; set; }
+        public DateTime startHour { get; set; }
         [Required]
-        public DateTime EndHour { get; set; }
-        public int? ProfessionalId { get; set; }
-        public int? CustomerId { get; set; }
-        public int? JobServiceId { get; set; }
-        public int? StatusId { get; set; }
+        public DateTime endHour { get; set; }
+        public int? professionalId { get; set; }
+        public int? customerId { get; set; }
+        public int? jobServiceId { get; set; }
+        public int? statusId { get; set; }
 
-        public virtual Customer Customer { get; set; }
-        public virtual Service JobService { get; set; }
-        public virtual Professional Professional { get; set; }
-        public virtual Status Status { get; set; }
-        public virtual ICollection<InvoiceLine> InvoiceLines { get; set; }
+        public virtual Customer customer { get; set; }
+        public virtual Service jobService { get; set; }
+        public virtual Professional professional { get; set; }
+        public virtual Status status { get; set; }
+        public virtual ICollection<InvoiceLine> invoiceLines { get; set; }
     }
 }

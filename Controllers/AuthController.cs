@@ -4,16 +4,19 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using HouseCleanersApi.Interfaces;
 using HouseCleanersApi.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Customers = HouseCleanersApi.Data.Customer;
+using HouseCleanersApi.Data;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
-using Professionals = HouseCleanersApi.Data.Professional;
-using User = HouseCleanersApi.Data.User;
+using M=HouseCleanersApi.Models;
+using D=HouseCleanersApi.Data;
+
+
 
 namespace HouseCleanersApi.Controllers
 {
@@ -21,44 +24,48 @@ namespace HouseCleanersApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-
+        private readonly UserManager<D.User> _userManager;
+        private readonly SignInManager<D.User> _signInManager;
+        private readonly IMapper _mapper;
         private readonly IGeneralRepository _repository;
         private readonly IConfiguration _config;
         
         
-        public AuthController( UserManager<User> userManager, IGeneralRepository repository, SignInManager<User>signInManager, IConfiguration config)
+        public AuthController( UserManager<D.User> userManager, IGeneralRepository repository, SignInManager<D.User>signInManager, IConfiguration config,IMapper mapper)
         {
            _userManager = userManager ;
            _signInManager = signInManager;
           _config = config;
-           _repository = repository; 
+           _repository = repository;
+           _mapper = mapper;
         }
 
         [HttpPost]
         [Route("CreateProfessional")]
-        public async Task<IActionResult> CreateProfessional(Professionals model)
+        public async Task<IActionResult> CreateProfessional(M.ProfessionalCreateModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            User user = new User()
+            D.User user = new D.User()
             {
-                firstName = model.FirstName,
-                lastName = model.LastName,
-                Email = model.Email,
-                UserName = model.Email,
-                PhoneNumber = model.PhoneNumber
+                firstName = model.firstName,
+                lastName = model.lastName,
+                Email = model.email,
+                UserName = model.email,
+                PhoneNumber = model.phoneNumber
             };
             var result = await _userManager.CreateAsync(user, model.password);
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "professionals");
-                model.user = user;
-                var res=_repository.professional.Create(model);
+                 
+                var professional = _mapper.Map<D.Professional>(model);
+                professional.user = _mapper.Map<D.User>(user);
+                var res = _repository.professional.Create(professional);
+                ;
                 if (!res)
                 {
                    await _userManager.DeleteAsync(user);
@@ -77,7 +84,7 @@ namespace HouseCleanersApi.Controllers
 
 [HttpPost]
 [Route("CreateCustomer")]
-        public async Task<IActionResult> CreateCustomer(Customers model)
+        public async Task<IActionResult> CreateCustomer(M.Customer model)
         {
             if (!ModelState.IsValid)
             {
@@ -85,20 +92,21 @@ namespace HouseCleanersApi.Controllers
             }
             else
             {
-                User user = new User()
+                D.User user = new D.User()
                 {
-                    firstName = model.FirstName,
-                    lastName = model.LastName,
-                    Email = model.Email,
-                    UserName = model.Email,
-                    PhoneNumber = model.PhoneNumber,
+                    firstName = model.firstName,
+                    lastName = model.lastName,
+                    Email = model.email,
+                    UserName = model.email,
+                    PhoneNumber = model.phoneNumber,
                 };
                 var result = await _userManager.CreateAsync(user, model.password);
                     if (result.Succeeded)
-                    {
+                    { 
                         await _userManager.AddToRoleAsync(user, "customers");
-                        model.user = user;
-                       var res= _repository.Customers.Create(model);
+                        var customer = _mapper.Map<D.Customer>(model);
+                        customer.user = user;
+                       var res= _repository.Customers.Create(customer);
                        if (!res)
                        {
                            await _userManager.DeleteAsync(user);
@@ -119,10 +127,10 @@ namespace HouseCleanersApi.Controllers
         [Route("LogIn")]
         public async Task<IActionResult> Login(LoginModel model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.password, true, false);
+            var result = await _signInManager.PasswordSignInAsync(model.email, model.password, true, false);
             if (result.Succeeded)
             {
-                var user = await _userManager.FindByEmailAsync(model.Email);
+                var user = await _userManager.FindByEmailAsync(model.email);
                 var role = _userManager.GetRolesAsync(user).Result.FirstOrDefault();
                     
                  // create token

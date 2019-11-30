@@ -5,17 +5,17 @@ namespace HouseCleanersApi.Data
 {
     public partial class InvoiceLine
     {
-        public int InvoicelineId { get; set; }
-        public int? InvoiceId { get; set; }
-        public int? ReservationId { get; set; }
-        public decimal HourCount { get; set; }
-        public decimal HourPrice { get; set; }
-        public decimal PourcentCommission { get; set; }
-        public decimal PreCommission { get; set; }
-        public decimal CommissionTotal { get; set; }
-        public decimal Amount { get; set; }
+        public int invoicelineId { get; set; }
+        public int? invoiceId { get; set; }
+        public int? reservationId { get; set; }
+        public decimal hourCount { get; set; }
+        public decimal hourPrice { get; set; }
+        public decimal pourcentCommission { get; set; }
+        public decimal preCommission { get; set; }
+        public decimal commissionTotal { get; set; }
+        public decimal amount { get; set; }
 
-        public virtual Invoice Invoice { get; set; }
-        public virtual Reservation Reservation{ get; set; }
+        public virtual Invoice invoice { get; set; }
+        public virtual Reservation reservation{ get; set; }
     }
 }

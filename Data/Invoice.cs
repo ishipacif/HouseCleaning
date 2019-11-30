@@ -9,14 +9,14 @@ namespace HouseCleanersApi.Data
         {
         }
 
-        public int InvoiceId { get; set; }
-        public DateTime InvoiceDate { get; set; }
-        public decimal InvoiceAmountTotal { get; set; }
-        public int? ProfessionalId { get; set; }
-        public int? CustomerId { get; set; }
+        public int invoiceId { get; set; }
+        public DateTime invoiceDate { get; set; }
+        public decimal invoiceAmountTotal { get; set; }
+        public int? professionalId { get; set; }
+        public int? customerId { get; set; }
 
         public virtual Customer customer { get; set; }
-        public virtual Professional Professional { get; set; }
-        public virtual ICollection<InvoiceLine> InvoiceLines { get; set; } = new HashSet<InvoiceLine>();
+        public virtual Professional professional { get; set; }
+        public virtual ICollection<InvoiceLine> invoiceLines { get; set; } = new HashSet<InvoiceLine>();
     }
 }

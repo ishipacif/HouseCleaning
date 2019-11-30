@@ -36672,20 +36672,34 @@
         <e p="20191126140345_correctionservicepro.Designer.cs" t="Include" />
         <e p="20191126162257_renamingTables.cs" t="Include" />
         <e p="20191126162257_renamingTables.Designer.cs" t="Include" />
+        <e p="20191130190119_capitalLetterChamps.cs" t="Include" />
+        <e p="20191130190119_capitalLetterChamps.Designer.cs" t="Include" />
+        <e p="20191130200351_index.cs" t="Include" />
+        <e p="20191130200351_index.Designer.cs" t="Include" />
+        <e p="20191130201556_unnique.cs" t="Include" />
+        <e p="20191130201556_unnique.Designer.cs" t="Include" />
+        <e p="20191130201909_unique.cs" t="Include" />
+        <e p="20191130201909_unique.Designer.cs" t="Include" />
+        <e p="20191130202943_unnique2.cs" t="Include" />
+        <e p="20191130202943_unnique2.Designer.cs" t="Include" />
         <e p="clearnersDbContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="Models" t="Include">
         <e p="appsettings.Development.json" t="Include" />
-        <e p="Categories.cs" t="Include" />
-        <e p="Customers.cs" t="Include" />
-        <e p="InvoiceLines.cs" t="Include" />
-        <e p="Invoices.cs" t="Include" />
+        <e p="Category.cs" t="Include" />
+        <e p="Customer.cs" t="Include" />
+        <e p="CustomerCreateModel.cs" t="Include" />
+        <e p="Invoice.cs" t="Include" />
+        <e p="InvoiceLine.cs" t="Include" />
         <e p="LoginModel.cs" t="Include" />
-        <e p="Plannings.cs" t="Include" />
-        <e p="Professionals.cs" t="Include" />
-        <e p="Reservations.cs" t="Include" />
+        <e p="MapProfile.cs" t="Include" />
+        <e p="Planning.cs" t="Include" />
+        <e p="Professional.cs" t="Include" />
+        <e p="ProfessionalCreateModel.cs" t="Include" />
+        <e p="ProfessionalService.cs" t="Include" />
+        <e p="Reservation.cs" t="Include" />
         <e p="Roles.cs" t="Include" />
-        <e p="Services.cs" t="Include" />
+        <e p="Service.cs" t="Include" />
         <e p="Status.cs" t="Include" />
         <e p="TokensSetting.cs" t="Include" />
         <e p="User.cs" t="Include" />

@@ -8,15 +8,15 @@ namespace HouseCleanersApi.Data
     {
         public Categorie()
         {
-            Services = new HashSet<Service>();
+            services = new HashSet<Service>();
         }
 
-        public int CategoryId { get; set; }
+        public int categoryId { get; set; }
         [Required]
-        public string CategoryName { get; set; }
+        public string categoryName { get; set; }
         [Required]
-        public string CategoryDescription { get; set; }
+        public string categoryDescription { get; set; }
 
-        public virtual ICollection<Service> Services { get; set; }
+        public virtual ICollection<Service> services { get; set; }
     }
 }

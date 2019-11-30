@@ -21,74 +21,75 @@ namespace HouseCleanersApi.Migrations
 
             modelBuilder.Entity("HouseCleanersApi.Data.Categorie", b =>
                 {
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("categoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("CategoryDescription")
+                    b.Property<string>("categoryDescription")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("CategoryName")
+                    b.Property<string>("categoryName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("CategoryId");
+                    b.HasKey("categoryId");
 
-                    b.HasAlternateKey("CategoryName");
+                    b.HasIndex("categoryName")
+                        .IsUnique();
 
                     b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("HouseCleanersApi.Data.Customer", b =>
                 {
-                    b.Property<int>("CustomerId")
+                    b.Property<int>("customerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("City")
+                    b.Property<string>("city")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("email")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("firstName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("GeoCoords")
+                    b.Property<string>("geoCoords")
                         .HasColumnType("text");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("lastName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("phoneNumber")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Picture")
+                    b.Property<string>("picture")
                         .HasColumnType("text");
 
-                    b.Property<string>("PlotNumber")
+                    b.Property<string>("plotNumber")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("PostCode")
+                    b.Property<int>("postCode")
                         .HasColumnType("integer");
 
-                    b.Property<string>("StreetName")
+                    b.Property<string>("streetName")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("userId")
                         .HasColumnType("text");
 
-                    b.HasKey("CustomerId");
+                    b.HasKey("customerId");
 
                     b.HasIndex("userId");
 
@@ -97,155 +98,155 @@ namespace HouseCleanersApi.Migrations
 
             modelBuilder.Entity("HouseCleanersApi.Data.Invoice", b =>
                 {
-                    b.Property<int>("InvoiceId")
+                    b.Property<int>("invoiceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int?>("customerId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("InvoiceAmountTotal")
+                    b.Property<decimal>("invoiceAmountTotal")
                         .HasColumnType("numeric");
 
-                    b.Property<DateTime>("InvoiceDate")
+                    b.Property<DateTime>("invoiceDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("ProfessionalId")
+                    b.Property<int?>("professionalId")
                         .HasColumnType("integer");
 
-                    b.HasKey("InvoiceId");
+                    b.HasKey("invoiceId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("customerId");
 
-                    b.HasIndex("ProfessionalId");
+                    b.HasIndex("professionalId");
 
                     b.ToTable("Invoices");
                 });
 
             modelBuilder.Entity("HouseCleanersApi.Data.InvoiceLine", b =>
                 {
-                    b.Property<int>("InvoicelineId")
+                    b.Property<int>("invoicelineId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<decimal>("Amount")
+                    b.Property<decimal>("amount")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal>("CommissionTotal")
+                    b.Property<decimal>("commissionTotal")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal>("HourCount")
+                    b.Property<decimal>("hourCount")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal>("HourPrice")
+                    b.Property<decimal>("hourPrice")
                         .HasColumnType("numeric");
 
-                    b.Property<int?>("InvoiceId")
+                    b.Property<int?>("invoiceId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("PourcentCommission")
+                    b.Property<decimal>("pourcentCommission")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal>("PreCommission")
+                    b.Property<decimal>("preCommission")
                         .HasColumnType("numeric");
 
-                    b.Property<int?>("ReservationId")
+                    b.Property<int?>("reservationId")
                         .HasColumnType("integer");
 
-                    b.HasKey("InvoicelineId");
+                    b.HasKey("invoicelineId");
 
-                    b.HasIndex("InvoiceId");
+                    b.HasIndex("invoiceId");
 
-                    b.HasIndex("ReservationId");
+                    b.HasIndex("reservationId");
 
                     b.ToTable("InvoiceLines");
                 });
 
             modelBuilder.Entity("HouseCleanersApi.Data.Planning", b =>
                 {
-                    b.Property<int>("PlaningId")
+                    b.Property<int>("planingId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<TimeSpan>("EndBreakTime")
+                    b.Property<TimeSpan>("endBreakTime")
                         .HasColumnType("interval");
 
-                    b.Property<DateTime>("EndHour")
+                    b.Property<DateTime>("endHour")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("PlaningDate")
+                    b.Property<DateTime>("planingDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("ProfessionalId")
+                    b.Property<int?>("professionalId")
                         .HasColumnType("integer");
 
-                    b.Property<TimeSpan>("StartBreakTime")
+                    b.Property<TimeSpan>("startBreakTime")
                         .HasColumnType("interval");
 
-                    b.Property<DateTime>("StartHour")
+                    b.Property<DateTime>("startHour")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<TimeSpan>("TimeSlot")
+                    b.Property<TimeSpan>("timeSlot")
                         .HasColumnType("interval");
 
-                    b.HasKey("PlaningId");
+                    b.HasKey("planingId");
 
-                    b.HasIndex("ProfessionalId");
+                    b.HasIndex("professionalId");
 
                     b.ToTable("Plannings");
                 });
 
             modelBuilder.Entity("HouseCleanersApi.Data.Professional", b =>
                 {
-                    b.Property<int>("ProfessionalId")
+                    b.Property<int>("professionalId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("City")
+                    b.Property<string>("city")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("email")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("firstName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("GeoCoords")
+                    b.Property<string>("geoCoords")
                         .HasColumnType("text");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("lastName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("phoneNumber")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Picture")
+                    b.Property<string>("picture")
                         .HasColumnType("text");
 
-                    b.Property<string>("PlotNumber")
+                    b.Property<string>("plotNumber")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("PostCode")
+                    b.Property<int>("postCode")
                         .HasColumnType("integer");
 
-                    b.Property<string>("StreetName")
+                    b.Property<string>("streetName")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("userId")
                         .HasColumnType("text");
 
-                    b.HasKey("ProfessionalId");
+                    b.HasKey("professionalId");
 
                     b.HasIndex("userId");
 
@@ -269,96 +270,96 @@ namespace HouseCleanersApi.Migrations
 
             modelBuilder.Entity("HouseCleanersApi.Data.Reservation", b =>
                 {
-                    b.Property<int>("ReservationId")
+                    b.Property<int>("reservationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int?>("customerId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("EndHour")
+                    b.Property<DateTime>("endHour")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("JobServiceId")
+                    b.Property<int?>("jobServiceId")
                         .HasColumnName("jobServiceId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("ProfessionalId")
+                    b.Property<int?>("professionalId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("ReservationDate")
+                    b.Property<DateTime>("reservationDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("StartHour")
+                    b.Property<DateTime>("startHour")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("StatusId")
+                    b.Property<int?>("statusId")
                         .HasColumnType("integer");
 
-                    b.HasKey("ReservationId");
+                    b.HasKey("reservationId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("customerId");
 
-                    b.HasIndex("JobServiceId");
+                    b.HasIndex("jobServiceId");
 
-                    b.HasIndex("ProfessionalId");
+                    b.HasIndex("professionalId");
 
-                    b.HasIndex("StatusId");
+                    b.HasIndex("statusId");
 
                     b.ToTable("Reservations");
                 });
 
             modelBuilder.Entity("HouseCleanersApi.Data.Service", b =>
                 {
-                    b.Property<int>("ServiceId")
+                    b.Property<int>("serviceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int?>("categoryId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("ProfessionalId")
+                    b.Property<int?>("professionalId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("ServiceCommission")
+                    b.Property<string>("serviceCommission")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ServiceDescription")
+                    b.Property<string>("serviceDescription")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ServiceName")
+                    b.Property<string>("serviceName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("ServiceId");
+                    b.HasKey("serviceId");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("categoryId");
 
-                    b.HasIndex("ProfessionalId");
+                    b.HasIndex("professionalId");
 
                     b.ToTable("Services");
                 });
 
             modelBuilder.Entity("HouseCleanersApi.Data.Status", b =>
                 {
-                    b.Property<int>("StatusId")
+                    b.Property<int>("statusId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("StatusDescription")
+                    b.Property<string>("statusDescription")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("StatusName")
+                    b.Property<string>("statusName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("StatusId");
+                    b.HasKey("statusId");
 
                     b.ToTable("Status");
                 });
@@ -577,29 +578,29 @@ namespace HouseCleanersApi.Migrations
                 {
                     b.HasOne("HouseCleanersApi.Data.Customer", "customer")
                         .WithMany("Invoices")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("customerId");
 
-                    b.HasOne("HouseCleanersApi.Data.Professional", "Professional")
-                        .WithMany("Invoices")
-                        .HasForeignKey("ProfessionalId");
+                    b.HasOne("HouseCleanersApi.Data.Professional", "professional")
+                        .WithMany("invoices")
+                        .HasForeignKey("professionalId");
                 });
 
             modelBuilder.Entity("HouseCleanersApi.Data.InvoiceLine", b =>
                 {
-                    b.HasOne("HouseCleanersApi.Data.Invoice", "Invoice")
-                        .WithMany("InvoiceLines")
-                        .HasForeignKey("InvoiceId");
+                    b.HasOne("HouseCleanersApi.Data.Invoice", "invoice")
+                        .WithMany("invoiceLines")
+                        .HasForeignKey("invoiceId");
 
-                    b.HasOne("HouseCleanersApi.Data.Reservation", "Reservation")
-                        .WithMany("InvoiceLines")
-                        .HasForeignKey("ReservationId");
+                    b.HasOne("HouseCleanersApi.Data.Reservation", "reservation")
+                        .WithMany("invoiceLines")
+                        .HasForeignKey("reservationId");
                 });
 
             modelBuilder.Entity("HouseCleanersApi.Data.Planning", b =>
                 {
-                    b.HasOne("HouseCleanersApi.Data.Professional", "Professionnal")
-                        .WithMany("Plannings")
-                        .HasForeignKey("ProfessionalId");
+                    b.HasOne("HouseCleanersApi.Data.Professional", "professionnal")
+                        .WithMany("plannings")
+                        .HasForeignKey("professionalId");
                 });
 
             modelBuilder.Entity("HouseCleanersApi.Data.Professional", b =>
@@ -618,7 +619,7 @@ namespace HouseCleanersApi.Migrations
                         .IsRequired();
 
                     b.HasOne("HouseCleanersApi.Data.Service", "service")
-                        .WithMany("Professionals")
+                        .WithMany("professionals")
                         .HasForeignKey("serviceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -626,32 +627,32 @@ namespace HouseCleanersApi.Migrations
 
             modelBuilder.Entity("HouseCleanersApi.Data.Reservation", b =>
                 {
-                    b.HasOne("HouseCleanersApi.Data.Customer", "Customer")
+                    b.HasOne("HouseCleanersApi.Data.Customer", "customer")
                         .WithMany("Reservations")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("customerId");
 
-                    b.HasOne("HouseCleanersApi.Data.Service", "JobService")
-                        .WithMany("Reservations")
-                        .HasForeignKey("JobServiceId");
+                    b.HasOne("HouseCleanersApi.Data.Service", "jobService")
+                        .WithMany("reservations")
+                        .HasForeignKey("jobServiceId");
 
-                    b.HasOne("HouseCleanersApi.Data.Professional", "Professional")
-                        .WithMany("Reservations")
-                        .HasForeignKey("ProfessionalId");
+                    b.HasOne("HouseCleanersApi.Data.Professional", "professional")
+                        .WithMany("reservations")
+                        .HasForeignKey("professionalId");
 
-                    b.HasOne("HouseCleanersApi.Data.Status", "Status")
-                        .WithMany("Reservations")
-                        .HasForeignKey("StatusId");
+                    b.HasOne("HouseCleanersApi.Data.Status", "status")
+                        .WithMany("reservations")
+                        .HasForeignKey("statusId");
                 });
 
             modelBuilder.Entity("HouseCleanersApi.Data.Service", b =>
                 {
-                    b.HasOne("HouseCleanersApi.Data.Categorie", "Category")
-                        .WithMany("Services")
-                        .HasForeignKey("CategoryId");
+                    b.HasOne("HouseCleanersApi.Data.Categorie", "category")
+                        .WithMany("services")
+                        .HasForeignKey("categoryId");
 
                     b.HasOne("HouseCleanersApi.Data.Professional", null)
                         .WithMany("services")
-                        .HasForeignKey("ProfessionalId");
+                        .HasForeignKey("professionalId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

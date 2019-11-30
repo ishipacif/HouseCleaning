@@ -13,26 +13,26 @@ namespace HouseCleanersApi.Data
             Reservations = new HashSet<Reservation>();
         }
 
-        public int CustomerId { get; set; }
+        public int customerId { get; set; }
         [Required]
-        public string FirstName { get; set; }
+        public string firstName { get; set; }
         [Required]
-        public string LastName { get; set; }
+        public string lastName { get; set; }
         [Required]
-        public string Email { get; set; }
+        public string email { get; set; }
         [Required]
-        public string PhoneNumber { get; set; }
+        public string phoneNumber { get; set; }
         [Required]
-        public string StreetName { get; set; }
+        public string streetName { get; set; }
         [Required]
-        public string PlotNumber { get; set; }
+        public string plotNumber { get; set; }
         [Required]
-        public string City { get; set; }
+        public string city { get; set; }
         [Required]
-        public int PostCode { get; set; }
+        public int postCode { get; set; }
         
-        public string GeoCoords { get; set; }
-        public string Picture { get; set; }
+        public string geoCoords { get; set; }
+        public string picture { get; set; }
         public User user { get; set; }
         public string userId { get; set; }
         [NotMapped]

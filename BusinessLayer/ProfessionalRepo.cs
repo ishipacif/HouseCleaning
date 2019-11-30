@@ -17,7 +17,7 @@ namespace HouseCleanersApi.BusinessLayer
         {
             return _context.Professionals.Join(
                 _context.ProfessionalServices.Where(x => x.serviceId == serviceId),
-                d => d.ProfessionalId,
+                d => d.professionalId,
                 f => f.professionalId,
                 (d, f) => d);
 
