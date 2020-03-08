@@ -20,11 +20,11 @@ namespace HouseCleanersApi.Data
         public DateTime endHour { get; set; }
         public int? professionalId { get; set; }
         public int? customerId { get; set; }
-        public int? jobServiceId { get; set; }
+        public int? ServiceId { get; set; }
         public int? statusId { get; set; }
 
         public virtual Customer customer { get; set; }
-        public virtual Service jobService { get; set; }
+        public virtual Service Service { get; set; }
         public virtual Professional professional { get; set; }
         public virtual Status status { get; set; }
         public virtual ICollection<InvoiceLine> invoiceLines { get; set; }

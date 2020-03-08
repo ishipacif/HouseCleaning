@@ -36640,6 +36640,9 @@
         <e p="VERSION" t="Include" />
         <e p="yarn.lock" t="Include" />
       </e>
+      <e p="Helper" t="Include">
+        <e p="TimeManagement.cs" t="Include" />
+      </e>
       <e p="HouseCleanersApi.csproj" t="IncludeRecursive" />
       <e p="Interfaces" t="Include">
         <e p="ICategoriesRepo.cs" t="Include" />

@@ -112,21 +112,21 @@ namespace HouseCleanersApi.Data
 
                 entity.HasIndex(e => e.customerId);
 
-                entity.HasIndex(e => e.jobServiceId);
+                entity.HasIndex(e => e.ServiceId);
 
                 entity.HasIndex(e => e.professionalId);
 
                 entity.HasIndex(e => e.statusId);
 
-                entity.Property(e => e.jobServiceId).HasColumnName("jobServiceId");
+                entity.Property(e => e.ServiceId).HasColumnName("jobServiceId");
 
                 entity.HasOne(d => d.customer)
                     .WithMany(p => p.Reservations)
                     .HasForeignKey(d => d.customerId);
 
-                entity.HasOne(d => d.jobService)
+                entity.HasOne(d => d.Service)
                     .WithMany(p => p.reservations)
-                    .HasForeignKey(d => d.jobServiceId);
+                    .HasForeignKey(d => d.ServiceId);
 
                 entity.HasOne(d => d.professional)
                     .WithMany(p => p.reservations)
