@@ -21,6 +21,7 @@ namespace HouseCleanersApi.Data
         [Required]
         public string serviceCommission { get; set; }
         public int? categoryId { get; set; }
+        public decimal price { get; set; } 
 
         public virtual Categorie category { get; set; }
         public virtual ICollection<Reservation> reservations { get; set; }

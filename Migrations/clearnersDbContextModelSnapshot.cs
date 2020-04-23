@@ -275,15 +275,15 @@ namespace HouseCleanersApi.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int?>("ServiceId")
+                        .HasColumnName("jobServiceId")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("customerId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("endHour")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<int?>("jobServiceId")
-                        .HasColumnName("jobServiceId")
-                        .HasColumnType("integer");
 
                     b.Property<int?>("professionalId")
                         .HasColumnType("integer");
@@ -299,9 +299,9 @@ namespace HouseCleanersApi.Migrations
 
                     b.HasKey("reservationId");
 
-                    b.HasIndex("customerId");
+                    b.HasIndex("ServiceId");
 
-                    b.HasIndex("jobServiceId");
+                    b.HasIndex("customerId");
 
                     b.HasIndex("professionalId");
 
@@ -580,7 +580,7 @@ namespace HouseCleanersApi.Migrations
                         .WithMany("Invoices")
                         .HasForeignKey("customerId");
 
-                    b.HasOne("HouseCleanersApi.Data.Professional", "professional")
+                    b.HasOne("HouseCleanersApi.Data.Professional", null)
                         .WithMany("invoices")
                         .HasForeignKey("professionalId");
                 });
@@ -627,13 +627,13 @@ namespace HouseCleanersApi.Migrations
 
             modelBuilder.Entity("HouseCleanersApi.Data.Reservation", b =>
                 {
+                    b.HasOne("HouseCleanersApi.Data.Service", "Service")
+                        .WithMany("reservations")
+                        .HasForeignKey("ServiceId");
+
                     b.HasOne("HouseCleanersApi.Data.Customer", "customer")
                         .WithMany("Reservations")
                         .HasForeignKey("customerId");
-
-                    b.HasOne("HouseCleanersApi.Data.Service", "jobService")
-                        .WithMany("reservations")
-                        .HasForeignKey("jobServiceId");
 
                     b.HasOne("HouseCleanersApi.Data.Professional", "professional")
                         .WithMany("reservations")

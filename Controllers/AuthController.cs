@@ -42,7 +42,7 @@ namespace HouseCleanersApi.Controllers
 
         [HttpPost]
         [Route("CreateProfessional")]
-        public async Task<IActionResult> CreateProfessional(M.ProfessionalCreateModel model)
+        public async Task<IActionResult> CreateProfessional(M.ProfessionalCreateUpdateModel model)
         {
             if (!ModelState.IsValid)
             {

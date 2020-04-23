@@ -25,8 +25,11 @@ namespace HouseCleanersApi.Models
             CreateMap<D.User, M.User>().ReverseMap();
             CreateMap<D.InvoiceLine, M.InvoiceLine>();
             CreateMap<D.ProfessionalService, M.ProfessionalService>().ReverseMap();
-            CreateMap<ProfessionalCreateModel, D.Professional>();
-            CreateMap<CustomerCreateModel, D.Customer>();
+            CreateMap<ProfessionalCreateUpdateModel, D.Professional>();
+            CreateMap<CustomerCreateUpdateModel, D.Customer>();
+            CreateMap<InvoiceCreateUpdateModel, D.Invoice>();
+            CreateMap<InvoiceCreateUpdateModel, D.Invoice>();
+            CreateMap<ReservationCreateUpdateModel, D.Reservation>();
 
 
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection.Metadata.Ecma335;
 using HouseCleanersApi.Data;
 using HouseCleanersApi.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -19,8 +20,22 @@ namespace HouseCleanersApi.BusinessLayer
         }
         public IQueryable<T> GetAll()
         {
+
+            return
+                _context.Set<T>(); //pour retourner les DBsets (les modeles), as not tracking pour ne pas recuperer les sous objets lors de la recuperation des données
+        }
+
+        public T FindById(int id)
+        {
+            try
+            {
+              return   _context.Set<T>().Find(id);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
             
-            return _context.Set<T>().AsNoTracking(); //pour retourner les DBsets (les modeles), as not tracking pour ne pas recuperer les sous objets lors de la recuperation des données
         }
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> query)

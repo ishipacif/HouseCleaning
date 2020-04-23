@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -51,17 +52,11 @@ namespace HouseCleanersApi.Data
                 entity.HasIndex(e => e.reservationId);
 
                 entity.Property(e => e.amount).HasColumnType("numeric");
-
-                entity.Property(e => e.commissionTotal).HasColumnType("numeric");
-
+                
                 entity.Property(e => e.hourCount).HasColumnType("numeric");
 
                 entity.Property(e => e.hourPrice).HasColumnType("numeric");
-
-                entity.Property(e => e.pourcentCommission).HasColumnType("numeric");
-
-                entity.Property(e => e.preCommission).HasColumnType("numeric");
-
+                
                 entity.HasOne(d => d.invoice)
                     .WithMany(p => p.invoiceLines)
                     .HasForeignKey(d => d.invoiceId);
@@ -69,6 +64,7 @@ namespace HouseCleanersApi.Data
                 entity.HasOne(d => d.reservation)
                     .WithMany(p => p.invoiceLines)
                     .HasForeignKey(d => d.reservationId);
+               
             });
 
             modelBuilder.Entity<Invoice>(entity =>
@@ -85,9 +81,7 @@ namespace HouseCleanersApi.Data
                     .WithMany(p => p.Invoices)
                     .HasForeignKey(d => d.customerId);
 
-                entity.HasOne(d => d.professional)
-                    .WithMany(p => p.invoices)
-                    .HasForeignKey(d => d.professionalId);
+                
             });
 
             modelBuilder.Entity<Planning>(entity =>

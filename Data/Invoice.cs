@@ -16,7 +16,7 @@ namespace HouseCleanersApi.Data
         public int? customerId { get; set; }
 
         public virtual Customer customer { get; set; }
-        public virtual Professional professional { get; set; }
+        //public virtual Professional professional { get; set; }
         public virtual ICollection<InvoiceLine> invoiceLines { get; set; } = new HashSet<InvoiceLine>();
     }
 }

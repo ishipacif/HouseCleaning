@@ -1,6 +1,5 @@
 /Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/appsettings.json
 /Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/Properties/launchSettings.json
-/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/HouseCleanersApi
 /Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/HouseCleanersApi.deps.json
 /Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/HouseCleanersApi.runtimeconfig.json
 /Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/HouseCleanersApi.runtimeconfig.dev.json
@@ -447,3 +446,7 @@ C:/Users/jolie/Desktop/HouseCleaning/bin/Debug/netcoreapp3.0/AutoMapper.dll
 C:/Users/jolie/Desktop/HouseCleaning/bin/Debug/netcoreapp3.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 /Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/AutoMapper.dll
 /Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/System.Security.Cryptography.Pkcs.dll
+/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/bin/Debug/netcoreapp3.0/runtimes/win/lib/netcoreapp2.1/System.Security.Cryptography.Pkcs.dll
+/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/obj/Debug/netcoreapp3.0/HouseCleanersApi.csproj.CoreCompileInputs.cache
+/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/obj/Debug/netcoreapp3.0/HouseCleanersApi.genruntimeconfig.cache

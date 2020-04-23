@@ -1,6 +1,6 @@
 namespace HouseCleanersApi.Models
 {
-    public class CustomerCreateModel
+    public class CustomerCreateUpdateModel
     {
           public int customerId { get; set; }
                 public string firstName { get; set; }

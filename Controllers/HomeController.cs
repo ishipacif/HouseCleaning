@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using HouseCleanersApi.Data;
 using HouseCleanersApi.Interfaces;
@@ -66,7 +68,44 @@ namespace HouseCleanersApi.Controllers
               return  new ObjectResult (_mapper.Map<M.Professional>(_repository.professional.FindByCondition(x=> x.firstName.Contains(name)||x.lastName.Contains(name))));
           }
           
+          //services
           
+           //Services
+                  [HttpGet]
+                  [Route("Services")]
+                  public IActionResult GetAllServices()
+                  {
+                      var services = _mapper.Map<IEnumerable<M.Service>>(_repository.service.GetAll());
+                      return new ObjectResult(services);
+                  }
+          
+                  [HttpGet]
+                  [Route("ServicesByCategory")]
+                  public IActionResult GetServiceByCategory(int categoryId)
+                  {
+                      var dbresult = _repository.service.FindByCondition(x => x.categoryId == categoryId).FirstOrDefault();
+                      var result = _mapper.Map<M.Service>(dbresult);
+                      return new ObjectResult(result);
+                  }
+          
+                  [HttpGet]
+                  [Route("ServicesByProfessional")]
+                  public IActionResult GetServiceByProfessional(int professionalId)
+                  {
+                      var dbResult = _repository.service.ServicesByProfessionnal(professionalId).ToList();
+                      var result = _mapper.Map<IEnumerable<M.Service>>(dbResult);
+          
+                      return new ObjectResult(result);
+                  }
+                  
+                  [HttpGet]
+                  [Route("Services/{id}")]
+                  public IActionResult GetOneServices(int id)
+                  {
+                      var services = _mapper.Map<IEnumerable<M.Service>>(_repository.service.FindByCondition(s=>s.serviceId==id));
+                      return new ObjectResult(services); 
+                  }
+
     }
     
 }

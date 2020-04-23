@@ -36,7 +36,7 @@ namespace HouseCleanersApi.Controllers
             return new ObjectResult(result);
         }
 
-        #endregion
+        
 
         [HttpGet]
         [Route("Category")]
@@ -72,7 +72,9 @@ namespace HouseCleanersApi.Controllers
             var c = _repository.categorie.Delete(model);
             return new ObjectResult(c);
         }
+        #endregion
 
+        #region Services
 
         //Services
         [HttpGet]
@@ -82,7 +84,15 @@ namespace HouseCleanersApi.Controllers
             var services = _mapper.Map<IEnumerable<M.Service>>(_repository.service.GetAll());
             return new ObjectResult(services);
         }
+        [HttpGet]
+        [Route("Services/{id}")]
+        public IActionResult GetOneServices(int id)
+        {
+            var services = _mapper.Map<IEnumerable<M.Service>>(_repository.service.FindByCondition(s=>s.serviceId==id));
+            return new ObjectResult(services);
+        }
 
+        
         [HttpGet]
         [Route("ServicesByCategory")]
         public IActionResult GetServiceByCategory(int categoryId)
@@ -104,8 +114,13 @@ namespace HouseCleanersApi.Controllers
 
         [HttpPut]
         [Route("ModifyServices")]
-        public IActionResult ModifyServices([FromBody] M.Service serv)
+        public IActionResult ModifyServices([FromBody] M.ServiceCreateUpdateModes serv)
         {
+            if (_repository.service.FindByCondition(s=>s.serviceId==serv.serviceId)==null)
+            {
+                return NotFound();
+            }
+            
             var toDb = _mapper.Map<D.Service>(serv);
             var c = _repository.service.Update(toDb);
             return new ObjectResult(c);
@@ -113,7 +128,7 @@ namespace HouseCleanersApi.Controllers
 
         [HttpPost]
         [Route("CreateService")]
-        public IActionResult CreateService([FromBody] M.Service serv)
+        public IActionResult CreateService([FromBody] M.ServiceCreateUpdateModes serv)
         {
             var toDb = _mapper.Map<D.Service>(serv);
             var c = _repository.service.Create(toDb);
@@ -122,8 +137,9 @@ namespace HouseCleanersApi.Controllers
 
         [HttpPost]
         [Route("createManyServices")]
-        public IActionResult CreateManyServices([FromBody] IEnumerable<M.Service> serv)
+        public IActionResult CreateManyServices([FromBody] IEnumerable<M.ServiceCreateUpdateModes> serv)
         {
+            
             var toDb = _mapper.Map<List<D.Service>>(serv);
             var c = _repository.service.CreateMany(toDb);
             return new ObjectResult(c);
@@ -146,9 +162,12 @@ namespace HouseCleanersApi.Controllers
             var c = _repository.service.DeleteMany(toDb);
             return new ObjectResult(c);
         }
-
+#endregion 
         //[HttpGet("{id}/account")]
 
+        #region professional
+
+        
         // Professionals 
 
         [HttpGet]
@@ -167,15 +186,19 @@ namespace HouseCleanersApi.Controllers
 
         [HttpPut]
         [Route("ModifyProfessional")]
-        public IActionResult ModifyProfessional([FromBody] M.Professional prof)
+        public IActionResult ModifyProfessional([FromBody] M.ProfessionalCreateUpdateModel prof)
         {
+            if (_repository.professional.FindByCondition(p=>p.professionalId==prof.professionalId)==null)
+            {
+                return NotFound();
+            }
             var c = _repository.professional.Update(_mapper.Map<D.Professional>(prof));
             return new ObjectResult(c);
         }
 
         [HttpPost]
         [Route("CreateProfessional")]
-        public IActionResult CreateProfessional([FromBody] M.Professional prof)
+        public IActionResult CreateProfessional([FromBody] M.ProfessionalCreateUpdateModel prof)
         {
             var c = _repository.professional.Create(_mapper.Map<D.Professional>(prof));
             return new ObjectResult(c);
@@ -198,9 +221,12 @@ namespace HouseCleanersApi.Controllers
             var c = _repository.professional.Delete(_mapper.Map<D.Professional>(prof));
             return new ObjectResult(c);
         }
+ #endregion
 
+        #region Customer
+
+ 
         // Customer 
-
         [HttpGet]
         [Route("Customer")]
         public IActionResult GetAllCustomer()
@@ -210,15 +236,19 @@ namespace HouseCleanersApi.Controllers
 
         [HttpPut]
         [Route("ModifyCustomer")]
-        public IActionResult ModifyCustomer([FromBody] M.Customer client)
+        public IActionResult ModifyCustomer([FromBody] M.CustomerCreateUpdateModel client)
         {
+            if (_repository.Customers.FindByCondition(cmr=>cmr.customerId==client.customerId)==null)
+            {
+                return NotFound();
+            }
             var c = _repository.Customers.Update(_mapper.Map<D.Customer>(client));
             return new ObjectResult(c);
         }
 
         [HttpPost]
         [Route("CreateCustomer")]
-        public IActionResult CreateCustomer([FromBody] M.Customer client)
+        public IActionResult CreateCustomer([FromBody] M.CustomerCreateUpdateModel client)
         {
             var c = _repository.Customers.Create(_mapper.Map<D.Customer>(client));
                         return new ObjectResult(c);
@@ -232,6 +262,10 @@ namespace HouseCleanersApi.Controllers
                         return new ObjectResult(c);
             return new ObjectResult(c);
         }
+#endregion
+
+        #region Region status
+
 
         // Statuts
 
@@ -244,9 +278,13 @@ namespace HouseCleanersApi.Controllers
 
         [HttpPut]
         [Route("Status/ModifyStatus")]
-        public IActionResult ModifyStatus([FromBody] M.Status status)
+        public IActionResult ModifyStatus([FromBody] M.StatusCreateUpdateModel myStatus)
         {
-            var c = _repository.status.Update(_mapper.Map<D.Status>(status));
+            if (_repository.status.FindByCondition(stat=>stat.statusId==myStatus.statusId)==null)
+            {
+                return NotFound();
+            }
+            var c = _repository.status.Update(_mapper.Map<D.Status>(myStatus));
             return new ObjectResult(c);
         }
 
@@ -265,6 +303,15 @@ namespace HouseCleanersApi.Controllers
             var c = _repository.status.Delete(_mapper.Map<D.Status>(status));
             return new ObjectResult(c);
         }
+        
+
+        #endregion
+
+        #region Invoices
+
+        
+
+        
         // Invoices
 
         [HttpGet]
@@ -282,9 +329,20 @@ namespace HouseCleanersApi.Controllers
         }
         [HttpPost]
         [Route("CreateInvoice")]
-        public IActionResult CreateInvoice([FromBody] M.Invoice invoice)
+        public IActionResult CreateInvoice([FromBody] M.InvoiceCreateUpdateModel invoice)
         {
             var c = _repository.invoice.Create(_mapper.Map<D.Invoice>(invoice));
+            return new ObjectResult(c);
+        }
+        [HttpPost]
+        [Route("ModifyInvoice")]
+        public IActionResult ModifyInvoice([FromBody] M.InvoiceCreateUpdateModel invoice)
+        {
+            if (_repository.invoice.FindByCondition(inv=>inv.invoiceId==invoice.invoiceId)==null)
+            {
+                return NotFound();
+            }
+            var c = _repository.invoice.Update(_mapper.Map<D.Invoice>(invoice));
             return new ObjectResult(c);
         }
         [HttpDelete]
@@ -294,8 +352,11 @@ namespace HouseCleanersApi.Controllers
             var c = _repository.invoice.Delete(_mapper.Map<D.Invoice>(invoices));
             return new ObjectResult(c);
         }
-        
+        #endregion
         //InvoiceLines
+
+        #region InvoiceLines
+
         
         [HttpGet]
         [Route("InvoicesLines")]
@@ -312,11 +373,35 @@ namespace HouseCleanersApi.Controllers
         }
         [HttpPost]
         [Route("CreateInvoiceLine")]
-        public IActionResult CreateInvoiceLine([FromBody] M.InvoiceLine invoiceLine)
+        public IActionResult CreateInvoiceLine([FromBody] M.InvoiceCreateUpdateModel invoiceLine)
         {
             var c = _repository.invoicelines.Create(_mapper.Map<InvoiceLine>(invoiceLine));
             return new ObjectResult(c);
         }
+        [HttpPut]
+        [Route("UpdateInvoiceLine")]
+        public IActionResult UpdateInvoiceLine([FromBody] M.InvoiceLineCreateUpdateModel invoiceLine)
+        {
+            if (_repository.invoicelines.FindByCondition(invl=>invl.invoicelineId==invoiceLine.invoicelineId)==null)
+            {
+                return NotFound();
+            }
+            var c = _repository.invoicelines.Update(_mapper.Map<InvoiceLine>(invoiceLine));
+            return new ObjectResult(c);
+        }
+        [HttpPut]
+        [Route("UpdateManyInvoiceLine")]
+        
+        public IActionResult UpdateManyInvoiceLine([FromBody] M.InvoiceLineCreateUpdateModel invoiceLine)
+        {
+            if (_repository.invoicelines.FindByCondition(invl=>invl.invoicelineId==invoiceLine.invoicelineId)==null)
+            {
+                return NotFound();
+            }
+            var c = _repository.invoicelines.UpdateMany(_mapper.Map<List<InvoiceLine>>(invoiceLine));
+            return new ObjectResult(c);
+        }
+        
         [HttpDelete]
         [Route("DeleteInvoiceLine")]
         public IActionResult DeleteInvoiceLine([FromBody] M.InvoiceLine invoiceline)
@@ -325,5 +410,36 @@ namespace HouseCleanersApi.Controllers
             return new ObjectResult(c);
         }
 
+        #endregion
+
+        #region Reservation
+
+        [HttpGet]
+        [Route("Reservations")]
+        public IActionResult GetAllReservations()
+        {
+            return new ObjectResult(_mapper.Map<IEnumerable<M.Reservation>>(_repository.reservation.GetAll()));
+        }
+
+        [HttpGet]
+        [Route("Reservation/{id}")]
+        public IActionResult Reservation(int id)
+        {
+            return new ObjectResult(_mapper.Map<M.Reservation>(_repository.reservation.FindById(id)));
+        }
+        [HttpGet]
+        [Route("ReservationByCustomer/{customerid}")]
+        public IActionResult ReservationByCustomer(int customerid)
+        {
+           return new ObjectResult(_mapper.Map<IEnumerable<M.Reservation>>(_repository.reservation.FindByCondition(x => x.customerId == customerid)));
+        }
+        [HttpGet]
+        [Route("ReservationByProfessional/{professionalid}")]
+        public IActionResult ReservationByProfessional(int professionalid)
+        {
+            return new ObjectResult(_mapper.Map<IEnumerable<M.Reservation>>(_repository.reservation.FindByCondition(x => x.professionalId == professionalid)));
+        }
+        
+        #endregion
     }
 }

@@ -15,7 +15,6 @@ namespace HouseCleanersApi.Models
         public decimal invoiceAmountTotal { get; set; }
       
         public  Customer customer { get; set; }
-        public  Professional professional { get; set; }
         public  List<InvoiceLine> invoiceLines { get; set; } 
     }
 }

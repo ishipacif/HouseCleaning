@@ -22,6 +22,13 @@ namespace HouseCleanersApi.Data
         public async Task Seed()
         {
             _context.Database.EnsureCreated();
+            List<Status> statuses=new List<Status>()
+            {
+                new Status{ statusName = "waiting",statusDescription ="Waiting for professional validation"},
+                new Status{ statusName = "accepted",statusDescription ="accepted by professional"},
+                new Status{ statusName = "refused",statusDescription =" professional refuse the reservation"},
+                new Status{ statusName = "Done",statusDescription ="Done by a professional ready to the billing"}
+            };
 
             List<IdentityRole> roles = new List<IdentityRole>
             {
@@ -61,6 +68,7 @@ namespace HouseCleanersApi.Data
                                 }
             }
             
+            _context.Status.AddRange(statuses);
              
         }
     }

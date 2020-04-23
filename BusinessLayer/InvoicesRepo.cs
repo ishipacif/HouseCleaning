@@ -8,6 +8,14 @@ namespace HouseCleanersApi.BusinessLayer
     {
         public InvoicesRepo(clearnersDbContext context) : base(context)
         {
+            
+        }
+
+        public int CreateInvoice(Invoice invoice)
+        {
+            _context.Invoices.Add(invoice);
+            _context.SaveChanges();
+            return invoice.invoiceId;
         }
     }
 }

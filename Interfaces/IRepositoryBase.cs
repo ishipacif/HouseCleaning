@@ -15,5 +15,6 @@ namespace HouseCleanersApi.Interfaces
         bool UpdateMany(IEnumerable<T> models);
         bool Delete(T model);
         bool DeleteMany(IEnumerable<T> models);
+        T FindById(int id);
     }
 }

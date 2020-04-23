@@ -1,8 +1,8 @@
 namespace HouseCleanersApi.Models
 {
-    public class ProfessionalCreateModel
-    { 
-        
+    public class ProfessionalCreateUpdateModel
+    {
+            public int professionalId { get; set; }
             public string firstName { get; set; }
              public string lastName { get; set; }
              public string email { get; set; }

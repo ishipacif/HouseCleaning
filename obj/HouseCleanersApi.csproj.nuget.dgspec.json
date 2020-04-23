@@ -13,6 +13,9 @@
         "packagesPath": "/Users/ishipacif/.nuget/packages/",
         "outputPath": "/Users/ishipacif/RiderProjects/Tfe/HouseCleanersApi/obj/",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "/Users/ishipacif/.config/NuGet/NuGet.Config"
         ],
@@ -44,6 +47,10 @@
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[3.0.0, )"
+            },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
