@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using AutoMapper;
 using HouseCleanersApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using M=HouseCleanersApi.Models;
 using HouseCleanersApi.Data;
+using HouseCleanersApi.Helper;
 
 namespace HouseCleanersApi.Controllers
 {
@@ -52,6 +54,8 @@ namespace HouseCleanersApi.Controllers
                 {
                     return new ObjectResult(_mapper.Map<M.Reservation>(_repository.reservation.FindById(id)));
                 }
+                
+                //to do ajouter id professionnel (cfr lien associatif .net core) 
                 [HttpGet]
                 [Route("ReservationByCustomer/{customerid}")]
                 public IActionResult ReservationByCustomer(int customerid)
@@ -104,20 +108,39 @@ namespace HouseCleanersApi.Controllers
                      }
                      data.statusId = 4;
                      data.Service = _repository.service.FindById((int) data.ServiceId);
-                    return new ObjectResult(_repository.invoicelines.Create(GetInvoiceLine(data)));
+                    return new ObjectResult(_repository.invoicelines.Create(InvoiceManagement.GetInvoiceLine(data)));
                     
                  }
                 
+                 
                 #endregion
+        
+        #region Planning
 
-                private InvoiceLine GetInvoiceLine(Reservation res)
-                { 
-                    InvoiceLine invl=new InvoiceLine();
-                    invl.reservationId = res.reservationId;
-                    invl.hourCount = (res.endHour - res.startHour).Hours;
-                    invl.hourPrice = res.Service.price;
-                    invl.amount = invl.hourCount * invl.hourPrice;
-                    return invl;
-                }
+        [HttpPost]
+        [Route("Addplanning")]
+        public IActionResult Addplanning([FromBody]M.Planning planning)
+        {
+            return new ObjectResult(_repository.planning.Create(_mapper.Map<Planning>(planning)));
+        }
+
+        public IActionResult GetPlanningProfessionnel(int professionnelid)
+        {
+            return null;
+        }
+
+
+        public IActionResult GenarateDisponibilities()
+        {
+            
+        }
+        
+        #endregion
+        
+        
+        
+
+        
+                
     }
 }

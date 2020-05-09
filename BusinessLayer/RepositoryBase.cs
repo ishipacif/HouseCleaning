@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.InteropServices.WindowsRuntime;
 using HouseCleanersApi.Data;
 using HouseCleanersApi.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -43,18 +44,19 @@ namespace HouseCleanersApi.BusinessLayer
             return _context.Set<T>().Where(query);
         }
 
-        public bool Create(T model)
+        public T Create(T model)
         {
             try
             {
                 _context.Set<T>().Add(model);
             
-                return _context.SaveChanges() > 0;
+                _context.SaveChanges() ;
+                return model;
 
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                return null;
             }
             
         }

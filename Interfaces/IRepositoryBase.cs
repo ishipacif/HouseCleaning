@@ -9,7 +9,7 @@ namespace HouseCleanersApi.Interfaces
     {
         IQueryable<T> GetAll();
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> query); // expression qui aura une fonction qui retourne un boolean (pour le find by ID, name,... ".where))
-        bool Create(T model);  // on utilise le bool pour qu'il retourne ok ou pas et creer un modet (post)
+        T Create(T model);  // on utilise le bool pour qu'il retourne ok ou pas et creer un modet (post)
         bool CreateMany(IEnumerable<T> models);
         bool Update(T model);
         bool UpdateMany(IEnumerable<T> models);

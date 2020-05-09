@@ -13,6 +13,8 @@ namespace HouseCleanersApi.Models
         public TimeSpan startBreakTime { get; set; }
         public TimeSpan endBreakTime { get; set; }
         public int? professionalId { get; set; }
+        public bool saterday { get; set; }
+        public bool sunday { get; set; }
 
         public virtual Professional professional { get; set; }
     }

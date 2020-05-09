@@ -64,7 +64,7 @@ namespace HouseCleanersApi.Data
                 entity.HasOne(d => d.reservation)
                     .WithMany(p => p.invoiceLines)
                     .HasForeignKey(d => d.reservationId);
-               
+              
             });
 
             modelBuilder.Entity<Invoice>(entity =>
@@ -73,7 +73,7 @@ namespace HouseCleanersApi.Data
 
                 entity.HasIndex(e => e.customerId);
 
-                entity.HasIndex(e => e.professionalId);
+               // entity.HasIndex(e => e.professionalId);
 
                 entity.Property(e => e.invoiceAmountTotal).HasColumnType("numeric");
 
@@ -112,7 +112,7 @@ namespace HouseCleanersApi.Data
 
                 entity.HasIndex(e => e.statusId);
 
-                entity.Property(e => e.ServiceId).HasColumnName("jobServiceId");
+                entity.Property(e => e.ServiceId).HasColumnName("ServiceId");
 
                 entity.HasOne(d => d.customer)
                     .WithMany(p => p.Reservations)
@@ -147,21 +147,19 @@ namespace HouseCleanersApi.Data
                     e.professionalId,
                     e.serviceId
                 });
+            modelBuilder.Entity<Disponibility>()
+                .HasOne(p => p.professional)
+                .WithMany(d => d.disponibilities)
+                .HasForeignKey(p => p.professionalId);
+            modelBuilder.Entity<Disponibility>()
+                .HasIndex(p => new {p.professionalId, p.date , p.startHour, p.EndHour}).IsUnique();
+      
 
-          /*  modelBuilder.Entity<ProfessionalServices>()
-                .HasOne(e => e.professional)
-                .WithMany(s => s.services);
-            
-            modelBuilder.Entity<ProfessionalServices>()
-                .HasOne(e => e.service)
-                .WithMany(s => s.Professionals);
-
-    */
 
            base.OnModelCreating(modelBuilder);
         }
 
-       //  void OnModelCreatingPartial(ModelBuilder modelBuilder);
+   
                 
     }
 }

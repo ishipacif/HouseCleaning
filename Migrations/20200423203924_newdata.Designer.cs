@@ -3,15 +3,17 @@ using System;
 using HouseCleanersApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HouseCleanersApi.Migrations
 {
     [DbContext(typeof(clearnersDbContext))]
-    partial class clearnersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200423203924_newdata")]
+    partial class newdata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,36 +98,6 @@ namespace HouseCleanersApi.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("HouseCleanersApi.Data.Disponibility", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<TimeSpan>("EndHour")
-                        .HasColumnType("interval");
-
-                    b.Property<DateTime>("date")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("professionalId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("reserved")
-                        .HasColumnType("boolean");
-
-                    b.Property<TimeSpan>("startHour")
-                        .HasColumnType("interval");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("professionalId", "date", "startHour", "EndHour")
-                        .IsUnique();
-
-                    b.ToTable("Disponibility");
-                });
-
             modelBuilder.Entity("HouseCleanersApi.Data.Invoice", b =>
                 {
                     b.Property<int>("invoiceId")
@@ -204,17 +176,11 @@ namespace HouseCleanersApi.Migrations
                     b.Property<int?>("professionalId")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("saterday")
-                        .HasColumnType("boolean");
-
                     b.Property<TimeSpan>("startBreakTime")
                         .HasColumnType("interval");
 
                     b.Property<DateTime>("startHour")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("sunday")
-                        .HasColumnType("boolean");
 
                     b.Property<TimeSpan>("timeSlot")
                         .HasColumnType("interval");
@@ -303,7 +269,7 @@ namespace HouseCleanersApi.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int?>("ServiceId")
-                        .HasColumnName("ServiceId")
+                        .HasColumnName("jobServiceId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("customerId")
@@ -602,15 +568,6 @@ namespace HouseCleanersApi.Migrations
                     b.HasOne("HouseCleanersApi.Data.User", "user")
                         .WithMany()
                         .HasForeignKey("userId");
-                });
-
-            modelBuilder.Entity("HouseCleanersApi.Data.Disponibility", b =>
-                {
-                    b.HasOne("HouseCleanersApi.Data.Professional", "professional")
-                        .WithMany("disponibilities")
-                        .HasForeignKey("professionalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("HouseCleanersApi.Data.Invoice", b =>

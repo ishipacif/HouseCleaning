@@ -34,6 +34,7 @@
         <e p="Categorie.cs" t="Include" />
         <e p="clearnersDbContext.cs" t="Include" />
         <e p="Customer.cs" t="Include" />
+        <e p="Disponibility.cs" t="Include" />
         <e p="Invoice.cs" t="Include" />
         <e p="InvoiceLine.cs" t="Include" />
         <e p="Planning.cs" t="Include" />
@@ -36642,6 +36643,7 @@
         <e p="yarn.lock" t="Include" />
       </e>
       <e p="Helper" t="Include">
+        <e p="InvoiceManagement.cs" t="Include" />
         <e p="TimeManagement.cs" t="Include" />
       </e>
       <e p="HouseCleanersApi.csproj" t="IncludeRecursive" />
@@ -36688,6 +36690,10 @@
         <e p="20191130202943_unnique2.Designer.cs" t="Include" />
         <e p="20200411142112_removeprofIdInInvoice.cs" t="Include" />
         <e p="20200411142112_removeprofIdInInvoice.Designer.cs" t="Include" />
+        <e p="20200423203924_newdata.cs" t="Include" />
+        <e p="20200423203924_newdata.Designer.cs" t="Include" />
+        <e p="20200509215449_tableDisponibility.cs" t="Include" />
+        <e p="20200509215449_tableDisponibility.Designer.cs" t="Include" />
         <e p="clearnersDbContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="Models" t="Include">
@@ -36695,6 +36701,7 @@
         <e p="Category.cs" t="Include" />
         <e p="CreateModels" t="Include">
           <e p="CustomerCreateUpdateModel.cs" t="Include" />
+          <e p="DisponibilityCreateUpdateModel.cs" t="Include" />
           <e p="InvoiceCreateUpdateModel.cs" t="Include" />
           <e p="InvoiceLineCreateUpdateModel.cs" t="Include" />
           <e p="ProfessionalCreateUpdateModel.cs" t="Include" />

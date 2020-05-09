@@ -105,6 +105,29 @@ namespace HouseCleanersApi.Controllers
                       var services = _mapper.Map<IEnumerable<M.Service>>(_repository.service.FindByCondition(s=>s.serviceId==id));
                       return new ObjectResult(services); 
                   }
+                  
+                  #region Planning
+
+                  public IActionResult GetPlanningProfessionnal(int professionalId)
+                  {
+                     var planning= _repository.planning.FindByCondition(pl => pl.professionalId == professionalId).FirstOrDefault();
+                     if (planning==null)
+                     {
+                         return NotFound("no planning for this porfessional");
+                     }
+                    var hours=new List<int>();
+                     var count = planning.startHour.Hour;
+
+                     while (count<=planning.endHour.Hour)
+                     {
+                         hours.Add(count);
+                         count++;
+                     }
+
+                     return new ObjectResult(hours);
+                  }
+                  
+                  #endregion
 
     }
     

@@ -64,9 +64,9 @@ namespace HouseCleanersApi.Controllers
                  
                 var professional = _mapper.Map<D.Professional>(model);
                 professional.user = _mapper.Map<D.User>(user);
-                var res = _repository.professional.Create(professional);
+                var cus = _repository.professional.Create(professional);
                 ;
-                if (!res)
+                if (cus==null)
                 {
                    await _userManager.DeleteAsync(user);
                     return BadRequest();
@@ -106,8 +106,8 @@ namespace HouseCleanersApi.Controllers
                         await _userManager.AddToRoleAsync(user, "customers");
                         var customer = _mapper.Map<D.Customer>(model);
                         customer.user = user;
-                       var res= _repository.Customers.Create(customer);
-                       if (!res)
+                       var cus= _repository.Customers.Create(customer);
+                       if (cus==null)
                        {
                            await _userManager.DeleteAsync(user);
                            return BadRequest();

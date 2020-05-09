@@ -30,6 +30,7 @@ namespace HouseCleanersApi.Controllers
         public IActionResult AddReservation([FromBody] M.ReservationCreateUpdateModel reservation)
         {
             var data = _mapper.Map<Reservation>(reservation);
+            
             data.statusId = 1;
             return Ok(_repository.reservation.Create(data));
         }

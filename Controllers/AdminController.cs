@@ -328,11 +328,27 @@ namespace HouseCleanersApi.Controllers
             return new ObjectResult(_mapper.Map<M.Invoice>(_repository.invoice.FindByCondition(x => x.invoiceId == id).FirstOrDefault()));
         }
         [HttpPost]
-        [Route("CreateInvoice")]
-        public IActionResult CreateInvoice([FromBody] M.InvoiceCreateUpdateModel invoice)
+        [Route("CreateInvoiceByCustomer")]
+        public IActionResult CreateInvoiceByCustomer(int customerid)
         {
-            var c = _repository.invoice.Create(_mapper.Map<D.Invoice>(invoice));
-            return new ObjectResult(c);
+            var invoice = new Invoice
+            {
+                customerId = customerid,
+                invoiceAmountTotal = 0,
+                invoiceDate = DateTime.Now
+            };
+           int id= _repository.invoice.Create(invoice).invoiceId;
+           var invoiceLines = NoInvoicedLines(customerid) ;
+
+           foreach (var i in invoiceLines)
+           {
+               i.invoiceId = id;
+           }
+
+           _repository.invoicelines.UpdateMany(invoiceLines);
+           invoice.invoiceAmountTotal = invoiceLines.Sum(invl => invl.amount);
+           _repository.invoice.Update(invoice);
+           return new ObjectResult(_repository.invoice.Update(invoice));
         }
         [HttpPost]
         [Route("ModifyInvoice")]
@@ -409,7 +425,10 @@ namespace HouseCleanersApi.Controllers
              var c = _repository.invoicelines.Delete(_mapper.Map<InvoiceLine>(invoiceline));
             return new ObjectResult(c);
         }
-
+        private IEnumerable<InvoiceLine> NoInvoicedLines(int customerid)
+        {
+            return _repository.invoicelines.GetInvoiceLineByCustomer(customerid).Where(invl=>invl.invoiceId==0);
+        }
         #endregion
 
         #region Reservation

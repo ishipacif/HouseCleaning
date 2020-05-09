@@ -13,6 +13,7 @@ namespace HouseCleanersApi.Data
             plannings = new HashSet<Planning>();
             reservations = new HashSet<Reservation>();
             services = new List<Service>();
+            disponibilities = new List<Disponibility>();
             
         }
 
@@ -47,6 +48,7 @@ namespace HouseCleanersApi.Data
 
         public virtual ICollection<Invoice> invoices { get; set; }
         public virtual ICollection<Planning> plannings { get; set; }
+        public virtual ICollection<Disponibility> disponibilities { get; set; }
         public virtual ICollection<Reservation> reservations { get; set; }
         public virtual IEnumerable<Service> services { get; set; }
     }
