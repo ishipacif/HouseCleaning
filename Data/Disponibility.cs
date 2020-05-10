@@ -9,13 +9,12 @@ namespace HouseCleanersApi.Data
     {
         [Key]
         public int id { get; set; }
+        
+        
         [Required]
-     
-        public DateTime date { get; set; }
+        public DateTime startHour { get; set; }
         [Required]
-        public TimeSpan startHour { get; set; }
-        [Required]
-        public TimeSpan EndHour { get; set; }
+        public DateTime EndHour { get; set; }
         [Required]
         public int professionalId { get; set; }
         public Professional professional { get; set; }

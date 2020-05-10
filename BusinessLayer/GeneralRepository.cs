@@ -18,6 +18,7 @@ namespace HouseCleanersApi.BusinessLayer
         private IReservationsRepo _reservation;
         private IStatusRepo _status;
         private IProfessionalServiceRepo _professionalServices;
+        private IDisponibilityRepo _disponibility;
 
         public GeneralRepository(clearnersDbContext context)
         {
@@ -137,6 +138,20 @@ namespace HouseCleanersApi.BusinessLayer
 
                 return _professionalServices;
             }
+        }
+
+        public IDisponibilityRepo Disponibility
+        {
+            get
+            {
+                if (_disponibility==null)
+                {
+                    _disponibility =  new DisponibilityRepo(_context);
+                }
+
+                return _disponibility;
+            }
+            
         }
     }
 }

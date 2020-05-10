@@ -124,15 +124,22 @@ namespace HouseCleanersApi.Controllers
             return new ObjectResult(_repository.planning.Create(_mapper.Map<Planning>(planning)));
         }
 
+         [HttpGet] 
+         [Route("GetPlanningProfessionnel")]
         public IActionResult GetPlanningProfessionnel(int professionnelid)
         {
-            return null;
+            return new ObjectResult(_repository.planning.FindByCondition(p=>p.professionalId==professionnelid));
         }
 
-
-        public IActionResult GenarateDisponibilities()
+        [HttpPost] 
+         [Route("GenarateDisponibilities")]
+        public IActionResult GenarateDisponibilities([FromBody] M.PlanningProfessional planning)
         {
-            
+            var dates = TimeManagement.planningDates(planning.startDate, planning.endDate, planning.saturday,
+                planning.sunday);
+            var disponibilities =
+                TimeManagement.plannningHours(dates, planning.professionalId, planning.startHour, planning.endHour);
+            return new ObjectResult(_repository.Disponibility.CreateMany(disponibilities)); 
         }
         
         #endregion

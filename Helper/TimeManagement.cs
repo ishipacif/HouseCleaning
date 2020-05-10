@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using HouseCleanersApi.Data;
 
 namespace HouseCleanersApi.Helper
 {
@@ -42,16 +43,23 @@ namespace HouseCleanersApi.Helper
             return periodes;
         }
         
-        public static List<DateTime> plannningHours(List<DateTime> periods, TimeSpan startHour, TimeSpan endHour)
+        public static List<Disponibility> plannningHours(List<DateTime> periods, int professionalId, TimeSpan startHour, TimeSpan endHour)
         {
-            List<DateTime> disponibilities = new List<DateTime>();
+            List<Disponibility> disponibilities = new List<Disponibility>();
             foreach (var p in periods)
             {
                
                 for (int i = startHour.Hours; i < endHour.Hours; i++)
                 {
-                    DateTime mytime = p+ (new TimeSpan(i, 0, 0));
-                    disponibilities.Add(mytime);
+                    var disponibility = new Disponibility
+                    {
+                        professionalId = professionalId,
+                        startHour =  p+ (new TimeSpan(i, 0, 0)),
+                        EndHour =  p+ (new TimeSpan(i+1, 0, 0)),
+                        reserved = false,
+                    };
+                 
+                    disponibilities.Add(disponibility);
                 }
 
             }

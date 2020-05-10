@@ -12,6 +12,7 @@ namespace HouseCleanersApi.Interfaces
         IReservationsRepo reservation { get; }
         IStatusRepo status { get; }
         IProfessionalServiceRepo ProfessionalServices{ get; }
+        IDisponibilityRepo Disponibility { get; }
     }
     
 }

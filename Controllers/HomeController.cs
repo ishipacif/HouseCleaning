@@ -107,7 +107,8 @@ namespace HouseCleanersApi.Controllers
                   }
                   
                   #region Planning
-
+                  [HttpGet]
+                  [Route("GetPlanningProfessionnal")]
                   public IActionResult GetPlanningProfessionnal(int professionalId)
                   {
                      var planning= _repository.planning.FindByCondition(pl => pl.professionalId == professionalId).FirstOrDefault();

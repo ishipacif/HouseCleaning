@@ -25,7 +25,7 @@ namespace HouseCleanersApi.Data
                 public virtual DbSet<Service> Services { get; set; }
                 public virtual DbSet<Status> Status { get; set; }
                 public virtual DbSet<ProfessionalService> ProfessionalServices { get; set; }
-                
+                 public virtual DbSet<Disponibility> Disponibilities { get; set; }
                 
                 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -152,10 +152,9 @@ namespace HouseCleanersApi.Data
                 .WithMany(d => d.disponibilities)
                 .HasForeignKey(p => p.professionalId);
             modelBuilder.Entity<Disponibility>()
-                .HasIndex(p => new {p.professionalId, p.date , p.startHour, p.EndHour}).IsUnique();
-      
-
-
+               .HasIndex(p => new {p.professionalId, p.startHour, p.EndHour}).IsUnique(true);
+          
+            
            base.OnModelCreating(modelBuilder);
         }
 
