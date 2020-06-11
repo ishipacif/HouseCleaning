@@ -33,12 +33,15 @@ namespace HouseCleanersApi.Data
         
         public string geoCoords { get; set; }
         public string picture { get; set; }
+        public bool active { get; set; }
         public User user { get; set; }
         public string userId { get; set; }
         [NotMapped]
         public string password { get; set; }
         [NotMapped]
         public string passwordComfirm { get; set; }
+
+        
         public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual ICollection<Reservation> Reservations { get; set; }
     }

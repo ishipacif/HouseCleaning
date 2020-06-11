@@ -29,7 +29,7 @@ namespace HouseCleanersApi.Controllers
         [Route("UpdateProfessional")]
         public IActionResult UpdateProfessional([FromBody]M.Professional profesionnal)
         {
-            if (_repository.professional.FindById(profesionnal.professionalId)==null)
+            if (_repository.professional.FindById(x=>x.professionalId==profesionnal.professionalId)==null)
             {
                 return NotFound();
             }
@@ -52,7 +52,7 @@ namespace HouseCleanersApi.Controllers
                 [Route("Reservation/{id}")]
                 public IActionResult Reservation(int id)
                 {
-                    return new ObjectResult(_mapper.Map<M.Reservation>(_repository.reservation.FindById(id)));
+                    return new ObjectResult(_mapper.Map<M.Reservation>(_repository.reservation.FindById(x=>x.reservationId==id)));
                 }
                 
                 //to do ajouter id professionnel (cfr lien associatif .net core) 
@@ -73,7 +73,7 @@ namespace HouseCleanersApi.Controllers
                 [Route("ValidateReservation/{reservationid}")]
                 public IActionResult ValidateReservation(int reservationid)
                 {
-                    var data = _repository.reservation.FindById(reservationid);
+                    var data = _repository.reservation.FindById(x=>x.reservationId==reservationid);
                     if (data==null)
                     {
                         return NotFound();
@@ -87,7 +87,7 @@ namespace HouseCleanersApi.Controllers
                 [Route("RefusedReservation/{reservationid}")]
                 public IActionResult RefusedReservation(int reservationid)
                 {
-                    var data = _repository.reservation.FindById(reservationid);
+                    var data = _repository.reservation.FindById(x=>x.reservationId==reservationid);
                     if (data==null)
                     {
                         return NotFound();
@@ -101,14 +101,14 @@ namespace HouseCleanersApi.Controllers
                  [Route("JobDone/{reservationid}")]
                  public IActionResult JobDone(int reservationid)
                  {
-                     var data = _repository.reservation.FindById(reservationid);
-                     if (data==null)
+                     var myReservation = _repository.reservation.FindById(x=>x.reservationId==reservationid);
+                     if (myReservation==null)
                      {
                          return NotFound();
                      }
-                     data.statusId = 4;
-                     data.Service = _repository.service.FindById((int) data.ServiceId);
-                    return new ObjectResult(_repository.invoicelines.Create(InvoiceManagement.GetInvoiceLine(data)));
+                     myReservation.statusId = 4;
+                     myReservation.Service = _repository.service.FindById(x=>x.serviceId==myReservation.ServiceId);
+                    return new ObjectResult(_repository.invoicelines.Create(InvoiceManagement.GetInvoiceLine(myReservation)));
                     
                  }
                 

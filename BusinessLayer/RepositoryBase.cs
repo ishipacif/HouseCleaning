@@ -26,11 +26,11 @@ namespace HouseCleanersApi.BusinessLayer
                 _context.Set<T>(); //pour retourner les DBsets (les modeles), as not tracking pour ne pas recuperer les sous objets lors de la recuperation des données
         }
 
-        public T FindById(int id)
+        public T FindById(Expression<Func<T, bool>> query)
         {
             try
             {
-              return   _context.Set<T>().Find(id);
+              return   _context.Set<T>().AsNoTracking().FirstOrDefault(query);
             }
             catch (Exception e)
             {
@@ -41,7 +41,7 @@ namespace HouseCleanersApi.BusinessLayer
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> query)
         {
-            return _context.Set<T>().Where(query);
+            return _context.Set<T>().AsNoTracking().Where(query);
         }
 
         public T Create(T model)
@@ -69,8 +69,9 @@ namespace HouseCleanersApi.BusinessLayer
 
         public bool Update(T model)
         {
-            _context.Set<T>().Update(model);
-            return _context.SaveChanges() > 0 ;
+           
+           _context.Set<T>().Update(model);
+           return _context.SaveChanges() > 0 ;
         }
 
         public bool UpdateMany(IEnumerable<T> models)

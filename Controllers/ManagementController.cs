@@ -22,7 +22,7 @@ namespace HouseCleanersApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class ManagementController : ControllerBase
     {
         private readonly UserManager<D.User> _userManager;
         private readonly SignInManager<D.User> _signInManager;
@@ -31,7 +31,7 @@ namespace HouseCleanersApi.Controllers
         private readonly IConfiguration _config;
         
         
-        public AuthController( UserManager<D.User> userManager, IGeneralRepository repository, SignInManager<D.User>signInManager, IConfiguration config,IMapper mapper)
+        public ManagementController( UserManager<D.User> userManager, IGeneralRepository repository, SignInManager<D.User>signInManager, IConfiguration config,IMapper mapper)
         {
            _userManager = userManager ;
            _signInManager = signInManager;
@@ -42,7 +42,7 @@ namespace HouseCleanersApi.Controllers
 
         [HttpPost]
         [Route("CreateProfessional")]
-        public async Task<IActionResult> CreateProfessional(M.ProfessionalCreateUpdateModel model)
+        public async Task<IActionResult> CreateProfessional(ProfessionalCreateUpdateModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -81,10 +81,12 @@ namespace HouseCleanersApi.Controllers
                 return new ObjectResult(result.Errors);
             }
         }
+        
+        
 
 [HttpPost]
 [Route("CreateCustomer")]
-        public async Task<IActionResult> CreateCustomer(M.Customer model)
+        public async Task<IActionResult> CreateCustomer(CustomerCreateUpdateModel model)
         {
             if (!ModelState.IsValid)
             {

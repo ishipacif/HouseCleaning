@@ -41,6 +41,8 @@ namespace HouseCleanersApi.Data
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.HasKey(e => e.customerId);
+                entity.Property(e => e.active).HasDefaultValue(true);
+            
             });
 
             modelBuilder.Entity<InvoiceLine>(entity =>
@@ -59,12 +61,11 @@ namespace HouseCleanersApi.Data
                 
                 entity.HasOne(d => d.invoice)
                     .WithMany(p => p.invoiceLines)
-                    .HasForeignKey(d => d.invoiceId);
+                    .HasForeignKey(d => d.invoiceId).OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(d => d.reservation)
                     .WithMany(p => p.invoiceLines)
-                    .HasForeignKey(d => d.reservationId);
-              
+                    .HasForeignKey(d => d.reservationId).OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<Invoice>(entity =>
@@ -79,9 +80,7 @@ namespace HouseCleanersApi.Data
 
                 entity.HasOne(d => d.customer)
                     .WithMany(p => p.Invoices)
-                    .HasForeignKey(d => d.customerId);
-
-                
+                    .HasForeignKey(d => d.customerId).OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<Planning>(entity =>
@@ -92,12 +91,13 @@ namespace HouseCleanersApi.Data
 
                 entity.HasOne(d => d.professionnal)
                     .WithMany(p => p.plannings)
-                    .HasForeignKey(d => d.professionalId);
+                    .HasForeignKey(d => d.professionalId).OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<Professional>(entity =>
             {
                 entity.HasKey(e => e.professionalId);
+                entity.Property(e => e.active).HasDefaultValue(true);
             });
 
             modelBuilder.Entity<Reservation>(entity =>
@@ -116,19 +116,19 @@ namespace HouseCleanersApi.Data
 
                 entity.HasOne(d => d.customer)
                     .WithMany(p => p.Reservations)
-                    .HasForeignKey(d => d.customerId);
+                    .HasForeignKey(d => d.customerId).OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(d => d.Service)
                     .WithMany(p => p.reservations)
-                    .HasForeignKey(d => d.ServiceId);
+                    .HasForeignKey(d => d.ServiceId).OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(d => d.professional)
                     .WithMany(p => p.reservations)
-                    .HasForeignKey(d => d.professionalId);
+                    .HasForeignKey(d => d.professionalId).OnDelete(DeleteBehavior.Restrict);
                 
                 entity.HasOne(d => d.status)
                     .WithMany(p => p.reservations)
-                    .HasForeignKey(d => d.statusId);
+                    .HasForeignKey(d => d.statusId).OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<Service>(entity =>
@@ -139,7 +139,7 @@ namespace HouseCleanersApi.Data
 
                 entity.HasOne(d => d.category)
                     .WithMany(p => p.services)
-                    .HasForeignKey(d => d.categoryId);
+                    .HasForeignKey(d => d.categoryId).OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<ProfessionalService>()
                 .HasKey(e => new
@@ -150,12 +150,10 @@ namespace HouseCleanersApi.Data
             modelBuilder.Entity<Disponibility>()
                 .HasOne(p => p.professional)
                 .WithMany(d => d.disponibilities)
-                .HasForeignKey(p => p.professionalId);
+                .HasForeignKey(p => p.professionalId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Disponibility>()
                .HasIndex(p => new {p.professionalId, p.startHour, p.EndHour}).IsUnique(true);
-          
-            
-           base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
         }
 
    

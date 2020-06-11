@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading;
 using AutoMapper;
 using HouseCleanersApi.Data;
@@ -231,36 +232,36 @@ namespace HouseCleanersApi.Controllers
         [Route("Customer")]
         public IActionResult GetAllCustomer()
         {
-            return new ObjectResult(_mapper.Map<IEnumerable< M.Customer>>(_repository.Customers));
+            return new ObjectResult(_repository.Customers.GetAll());
         }
 
         [HttpPut]
         [Route("ModifyCustomer")]
-        public IActionResult ModifyCustomer([FromBody] M.CustomerCreateUpdateModel client)
+        public IActionResult ModifyCustomer([FromBody] M.CustomerCreateUpdateModel customer)
         {
-            if (_repository.Customers.FindByCondition(cmr=>cmr.customerId==client.customerId)==null)
+           
+            if (_repository.Customers.FindByCondition(x=>x.customerId==customer.customerId)==null)
             {
                 return NotFound();
             }
-            var c = _repository.Customers.Update(_mapper.Map<D.Customer>(client));
+
+            var c = _repository.Customers.Update(_mapper.Map<Customer>((customer)));
             return new ObjectResult(c);
         }
 
-        [HttpPost]
-        [Route("CreateCustomer")]
-        public IActionResult CreateCustomer([FromBody] M.CustomerCreateUpdateModel client)
-        {
-            var c = _repository.Customers.Create(_mapper.Map<D.Customer>(client));
-                        return new ObjectResult(c);
-        }
-
+     
         [HttpDelete]
-        [Route("DeleteCustomer")]
-        public IActionResult DeleteProfessional([FromBody] M.Customer client)
+        [Route("DeleteCustomer/id")]
+        public IActionResult DeleteCustomer(int id)
         {
-            var c = _repository.Customers.Delete(_mapper.Map<D.Customer>(client));
-                        return new ObjectResult(c);
-            return new ObjectResult(c);
+            var customer=_repository.Customers.FindById(x=>x.customerId==id);
+            if (customer==null)
+            {
+                return NotFound();
+            }
+
+            customer.active = false;
+            return new ObjectResult(_repository.Customers.Update(customer));
         }
 #endregion
 
@@ -354,7 +355,7 @@ namespace HouseCleanersApi.Controllers
         [Route("ModifyInvoice")]
         public IActionResult ModifyInvoice([FromBody] M.InvoiceCreateUpdateModel invoice)
         {
-            if (_repository.invoice.FindByCondition(inv=>inv.invoiceId==invoice.invoiceId)==null)
+            if (_repository.invoice.FindById(inv=>inv.invoiceId==invoice.invoiceId)==null)
             {
                 return NotFound();
             }
@@ -444,7 +445,7 @@ namespace HouseCleanersApi.Controllers
         [Route("Reservation/{id}")]
         public IActionResult Reservation(int id)
         {
-            return new ObjectResult(_mapper.Map<M.Reservation>(_repository.reservation.FindById(id)));
+            return new ObjectResult(_mapper.Map<M.Reservation>(_repository.reservation.FindById(x=>x.reservationId==id)));
         }
         [HttpGet]
         [Route("ReservationByCustomer/{customerid}")]

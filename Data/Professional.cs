@@ -36,6 +36,7 @@ namespace HouseCleanersApi.Data
         public int postCode { get; set; }
         public string geoCoords { get; set; }
         public string picture { get; set; }
+        public bool active { get; set; }
         public User user { get; set; }
         public string userId { get; set; }
         
