@@ -41,7 +41,15 @@ namespace HouseCleanersApi.BusinessLayer
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> query)
         {
-            return _context.Set<T>().AsNoTracking().Where(query);
+            try
+            {
+                return _context.Set<T>().AsNoTracking().Where(query);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            
         }
 
         public T Create(T model)

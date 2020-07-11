@@ -18,8 +18,8 @@ namespace HouseCleanersApi.Data
         public string serviceName { get; set; }
         [Required]
         public string serviceDescription { get; set; }
+        
         [Required]
-        public string serviceCommission { get; set; }
         public int? categoryId { get; set; }
         public decimal price { get; set; } 
 

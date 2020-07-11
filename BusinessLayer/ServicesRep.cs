@@ -21,8 +21,26 @@ namespace HouseCleanersApi.BusinessLayer
                            (d, f) => d);
            
                        //  return _context.ProfessionalServices.Where(p => p.serviceId == serviceId).Include(e => e.professional);
-           
-                  
+
         }
+
+        public IQueryable<Service> GetServices()
+        {
+            return _context.Services.Include(x => x.category);
+        }
+
+        public Service GetService(int id)
+        {
+            return _context.Services
+                .Include(x => x.category)
+                .FirstOrDefault(x => x.serviceId == id);
+
+        }
+
+        public IQueryable<Service> GetServiceByCategory(int id)
+        {
+            return _context.Services.Include(x => x.category).Where(x => x.categoryId == id);
+        }
+       
     }
 }

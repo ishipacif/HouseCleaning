@@ -36666,6 +36666,8 @@
       <e p="Migrations" t="Include">
         <e p="20200523162048_dbCreate.cs" t="Include" />
         <e p="20200523162048_dbCreate.Designer.cs" t="Include" />
+        <e p="20200626111039_ServiceModelUpdate.cs" t="Include" />
+        <e p="20200626111039_ServiceModelUpdate.Designer.cs" t="Include" />
         <e p="clearnersDbContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="Models" t="Include">

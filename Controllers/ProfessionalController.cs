@@ -26,15 +26,28 @@ namespace HouseCleanersApi.Controllers
         #region Infos Professional
         
         [HttpPut]
-        [Route("UpdateProfessional")]
-        public IActionResult UpdateProfessional([FromBody]M.Professional profesionnal)
+        [Route("ModifyProfessional")]
+        public IActionResult ModifyProfessional([FromBody] M.ProfessionalCreateUpdateModel prof)
         {
-            if (_repository.professional.FindById(x=>x.professionalId==profesionnal.professionalId)==null)
+            if (_repository.professional.FindByCondition(p=>p.professionalId==prof.professionalId)==null)
+            {
+                return NotFound();
+            }
+            var c = _repository.professional.Update(_mapper.Map<Professional>(prof));
+            return new ObjectResult(c);
+        }
+        [HttpDelete]
+        [Route("DeleteProfessional")]
+        public IActionResult DeleteProfessional(int id)
+        {
+            var professionel=_repository.professional.FindById(x=>x.professionalId==id);
+            if (professionel==null)
             {
                 return NotFound();
             }
 
-            return new ObjectResult(_repository.professional.Update(_mapper.Map<Professional>(profesionnal)));
+            professionel.active = false;
+            return new ObjectResult(_repository.professional.Update(professionel));
         }
         
         #endregion

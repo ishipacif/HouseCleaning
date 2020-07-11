@@ -30,8 +30,8 @@ namespace HouseCleanersApi.Models
             CreateMap<InvoiceCreateUpdateModel, D.Invoice>();
             CreateMap<InvoiceCreateUpdateModel, D.Invoice>();
             CreateMap<ReservationCreateUpdateModel, D.Reservation>();
-
-
+            CreateMap<ServiceCreateUpdateModes, D.Service>();
+            
 
         }
         

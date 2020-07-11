@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace HouseCleanersApi.Models
 {
     public class ServiceCreateUpdateModes
@@ -8,10 +10,14 @@ namespace HouseCleanersApi.Models
         }
 
         public int serviceId { get; set; }
+        [Required]
         public string serviceName { get; set; }
+        [Required]
         public string serviceDescription { get; set; }
-        public string serviceCommission { get; set; }
-        public int categorieId { get; set; }
+        
+        [Required]
+        public int? categoryId { get; set; }
+        public decimal price { get; set; } 
 
 
     }

@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using AutoMapper;
 using HouseCleanersApi.Data;
 using HouseCleanersApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using M=HouseCleanersApi.Models;
 using D=HouseCleanersApi.Data;
 namespace HouseCleanersApi.Controllers
@@ -33,7 +35,7 @@ namespace HouseCleanersApi.Controllers
         [Route("SelectCategory/{id}")]
         public IActionResult SelectCategory(int id)
         {
-            var result = _mapper.Map<M.Category>(_repository.categorie.FindByCondition(x => x.categoryId == id).FirstOrDefault());
+            var result = _mapper.Map<M.Category>(_repository.categorie.FindById(x => x.categoryId == id));
             return new ObjectResult(result);
         }
 
@@ -60,18 +62,25 @@ namespace HouseCleanersApi.Controllers
         [Route("Category/CreateCategory")]
         public IActionResult CreateCategory([FromBody] M.Category cat)
         {
+            if (!ModelState.IsValid)
+            {
+                return new ObjectResult(ModelState);
+            }
             var model = _mapper.Map<D.Categorie>(cat);
             var c = _repository.categorie.Create(model);
             return new ObjectResult(c);
         }
 
         [HttpDelete]
-        [Route("Category/DeleteCategory")]
-        public IActionResult DeleteCategory([FromBody] M.Category cat)
+        [Route("Category/DeleteCategory/{id}")]
+        public IActionResult DeleteCategory(int id)
         {
-            var model = _mapper.Map<D.Categorie>(cat);
-            var c = _repository.categorie.Delete(model);
-            return new ObjectResult(c);
+            var category = _repository.categorie.FindById(x=>x.categoryId==id);
+            if (category==null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(_repository.categorie.Delete(category));
         }
         #endregion
 
@@ -82,25 +91,15 @@ namespace HouseCleanersApi.Controllers
         [Route("Services")]
         public IActionResult GetAllServices()
         {
-            var services = _mapper.Map<IEnumerable<M.Service>>(_repository.service.GetAll());
+            var services = _mapper.Map<IEnumerable<M.Service>>(_repository.service.GetServices());
             return new ObjectResult(services);
         }
         [HttpGet]
         [Route("Services/{id}")]
         public IActionResult GetOneServices(int id)
         {
-            var services = _mapper.Map<IEnumerable<M.Service>>(_repository.service.FindByCondition(s=>s.serviceId==id));
-            return new ObjectResult(services);
-        }
-
-        
-        [HttpGet]
-        [Route("ServicesByCategory")]
-        public IActionResult GetServiceByCategory(int categoryId)
-        {
-            var dbresult = _repository.service.FindByCondition(x => x.categoryId == categoryId).FirstOrDefault();
-            var result = _mapper.Map<M.Service>(dbresult);
-            return new ObjectResult(result);
+            var service = _mapper.Map<M.Service>(_repository.service.GetService(id));
+            return new ObjectResult(service);
         }
 
         [HttpGet]
@@ -112,14 +111,25 @@ namespace HouseCleanersApi.Controllers
 
             return new ObjectResult(result);
         }
+        [HttpGet]
+        [Route("GetServicesByCategory/{categoryId}")]
+        public IActionResult GetServicesByCategory(int categoryId)
+        {
+            var services = _mapper.Map<IEnumerable<M.Service>>(_repository.service.GetServiceByCategory(categoryId));
+            return new ObjectResult(services);
+        }
 
         [HttpPut]
         [Route("ModifyServices")]
         public IActionResult ModifyServices([FromBody] M.ServiceCreateUpdateModes serv)
         {
-            if (_repository.service.FindByCondition(s=>s.serviceId==serv.serviceId)==null)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return new ObjectResult(ModelState);
+            }
+            if (_repository.service.FindById(s=>s.serviceId==serv.serviceId)==null)
+            {
+                return NotFound("Not Service in db");
             }
             
             var toDb = _mapper.Map<D.Service>(serv);
@@ -131,6 +141,10 @@ namespace HouseCleanersApi.Controllers
         [Route("CreateService")]
         public IActionResult CreateService([FromBody] M.ServiceCreateUpdateModes serv)
         {
+            if (!ModelState.IsValid)
+            {
+                return new ObjectResult(ModelState);
+            }
             var toDb = _mapper.Map<D.Service>(serv);
             var c = _repository.service.Create(toDb);
             return new ObjectResult(c);
@@ -147,12 +161,15 @@ namespace HouseCleanersApi.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteService")]
-        public IActionResult DeleteService([FromBody] M.Service serv)
+        [Route("DeleteService/{id}")]
+        public IActionResult DeleteService(int id)
         {
-            var toDb = _mapper.Map<D.Service>(serv);
-            var c = _repository.service.Delete(toDb);
-            return new ObjectResult(c);
+            var service = _repository.service.FindById((x => x.serviceId == id));
+            if (service==null)
+            {
+                return NotFound("Not found object in the DB");
+            }
+            return new ObjectResult(_repository.service.Delete(service));
         }
 
         [HttpDelete]
@@ -175,7 +192,7 @@ namespace HouseCleanersApi.Controllers
         [Route("Professionals")]
         public IActionResult GetAllProfessionals()
         {
-            return new ObjectResult(_mapper.Map<IEnumerable<M.Professional>>(_repository.professional.GetAll()));
+            return new ObjectResult(_mapper.Map<IEnumerable<M.Professional>>(_repository.professional.GetAllProfessionnal()));
         }
 
         [HttpGet]
@@ -217,10 +234,16 @@ namespace HouseCleanersApi.Controllers
 
         [HttpDelete]
         [Route("DeleteProfessional")]
-        public IActionResult DeleteProfessional([FromBody] M.Professional prof)
+        public IActionResult DeleteProfessional(int id)
         {
-            var c = _repository.professional.Delete(_mapper.Map<D.Professional>(prof));
-            return new ObjectResult(c);
+            var professionel=_repository.professional.FindById(x=>x.professionalId==id);
+            if (professionel==null)
+            {
+                return NotFound();
+            }
+
+            professionel.active = false;
+            return new ObjectResult(_repository.professional.Update(professionel));
         }
  #endregion
 

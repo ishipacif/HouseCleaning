@@ -1,5 +1,7 @@
+using System.Linq;
 using HouseCleanersApi.Data;
 using HouseCleanersApi.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace HouseCleanersApi.BusinessLayer
 {
@@ -7,6 +9,8 @@ namespace HouseCleanersApi.BusinessLayer
     {
         public ProfessionalServiceRepo(clearnersDbContext context) : base(context)
         {
+            
         }
+       
     }
 }

@@ -13,6 +13,7 @@ namespace HouseCleanersApi.Models
              public int postCode { get; set; }
              public string geoCoords { get; set; }
              public string picture { get; set; }
+             public bool active { get; set; }
      
              public string password { get; set; }
      

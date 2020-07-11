@@ -1,3 +1,4 @@
+using System.Linq;
 using HouseCleanersApi.Data;
 
 namespace HouseCleanersApi.Interfaces

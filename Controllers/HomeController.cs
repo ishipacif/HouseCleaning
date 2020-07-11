@@ -41,20 +41,23 @@ namespace HouseCleanersApi.Controllers
           [Route("Professionals")]
           public IActionResult GetAllProfessionals()
           {
-              return  new ObjectResult (_mapper.Map<M.Professional>(_repository.professional.GetAll()));
+              return new ObjectResult(_mapper.Map<IEnumerable<M.Professional>>(_repository.professional.GetAllProfessionnal()));
           }
+
+          [HttpGet]
+          [Route("ProfessionalsByService")]
+          public IActionResult ProfessionalsByService(int serviceId)
+          {
+              return new ObjectResult(_mapper.Map<IEnumerable<M.Professional>>(_repository.professional.ProfessionalByService(serviceId).ToList()));
+          }
+
           [HttpGet]
           [Route("Professional/id")]
           public IActionResult GetOneProfessionals(int id)
           {
               return  new ObjectResult (_mapper.Map<M.Professional>(_repository.professional.FindByCondition(x=>x.professionalId==id)));
           }
-          [HttpGet]
-          [Route("Professionals/serviceId")]
-          public IActionResult GetProfessionalsByService(int serviceId)
-          {
-              return  new ObjectResult (_mapper.Map<M.Professional>(GetProfessionalsByService(serviceId)));
-          }
+          
           [HttpGet]
           [Route("Professionals/postCode")]
           public IActionResult GetProfessionalsAddress(int PostCode)
