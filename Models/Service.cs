@@ -15,7 +15,7 @@ namespace HouseCleanersApi.Models
         public string serviceName { get; set; }
         public string serviceDescription { get; set; }
         public int? categoryId { get; set; }
-        public decimal price { get; set; } 
+        public double price { get; set; } 
 
 
         public Category category { get; set; }

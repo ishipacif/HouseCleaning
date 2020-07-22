@@ -11,16 +11,17 @@ namespace HouseCleanersApi.BusinessLayer
         {
             
         }
-        public IQueryable<Service> ServicesByProfessionnal(int professionalId)
+        public IQueryable<ProfessionalService> ServicesByProfessionnal(int professionalId)
         {
-          
-                       return _context.Services.Join(
-                           _context.ProfessionalServices.Where(x => x.serviceId == professionalId),
-                           d => d.serviceId,
-                           f => f.serviceId,
-                           (d, f) => d);
-           
-                       //  return _context.ProfessionalServices.Where(p => p.serviceId == serviceId).Include(e => e.professional);
+
+            //return _context.Services.Join(
+            //    _context.ProfessionalServices.Where(x => x.professionalId == professionalId),
+            //    d => d.serviceId,
+            //    f => f.serviceId,
+            //    (d, f) => d);
+
+            return _context.ProfessionalServices.Where(p => p.professionalId == professionalId)
+                .Include(e => e.service);
 
         }
 

@@ -15,7 +15,7 @@ namespace HouseCleanersApi.Data
 
         }
         
-         public virtual DbSet<Categorie> Categories { get; set; }
+                public virtual DbSet<Categorie> Categories { get; set; }
                 public virtual DbSet<Customer> Customers { get; set; }
                 public virtual DbSet<InvoiceLine> InvoiceLines { get; set; }
                 public virtual DbSet<Invoice> Invoices { get; set; }
@@ -129,7 +129,16 @@ namespace HouseCleanersApi.Data
                 entity.HasOne(d => d.status)
                     .WithMany(p => p.reservations)
                     .HasForeignKey(d => d.statusId).OnDelete(DeleteBehavior.Restrict);
+
             });
+
+            //modelBuilder.Entity<Status>(entity => {
+            //    entity.HasIndex(e => e.statusName).IsUnique();
+            //});
+
+            modelBuilder.Entity<Status>()
+               .HasAlternateKey(s => s.statusName)
+               .HasName("U.status");
 
             modelBuilder.Entity<Service>(entity =>
             {

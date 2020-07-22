@@ -13,12 +13,12 @@ namespace HouseCleanersApi.Models
         public int invoicelineId { get; set; }
         public int? invoiceId { get; set; }
         public int? reservationId { get; set; }
-        public decimal hourCount { get; set; }
-        public decimal hourPrice { get; set; }
-        public decimal pourcentCommission { get; set; }
-        public decimal preCommission { get; set; }
-        public decimal commissionTotal { get; set; }
-        public decimal amount { get; set; }
+        public double hourCount { get; set; }
+        public double hourPrice { get; set; }
+        public double pourcentCommission { get; set; }
+        public double preCommission { get; set; }
+        public double commissionTotal { get; set; }
+        public double amount { get; set; }
 
         public Invoice invoice { get; set; }
         public Reservation reservation { get; set; }

@@ -96,9 +96,9 @@ namespace HouseCleanersApi.Controllers
                   public IActionResult GetServiceByProfessional(int professionalId)
                   {
                       var dbResult = _repository.service.ServicesByProfessionnal(professionalId).ToList();
-                      var result = _mapper.Map<IEnumerable<M.Service>>(dbResult);
+                      //var result = _mapper.Map<IEnumerable<M.Service>>(dbResult);
           
-                      return new ObjectResult(result);
+                      return new ObjectResult(dbResult);
                   }
                   
                   [HttpGet]

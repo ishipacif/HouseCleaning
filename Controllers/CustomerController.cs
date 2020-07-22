@@ -5,6 +5,8 @@ using HouseCleanersApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using HouseCleanersApi.Data;
 using M=HouseCleanersApi.Models;
+using System;
+using System.Collections.Generic;
 
 namespace HouseCleanersApi.Controllers
 {
@@ -22,41 +24,84 @@ namespace HouseCleanersApi.Controllers
         }
 
         #region reservation
-
-     
-        //reservation
+        [HttpGet]
+        [Route("GetCustomerReservation")]
+        public IActionResult GetCustomerReservation (int customerId)
+        {
+            var  result =_mapper.Map<List<M.Reservation>>(_repository.reservation.GetReservationByCustomer(customerId).ToList());
+            return new ObjectResult(result);
+        }
+        [HttpGet]
+        [Route("GetOneReservation")]
+        public IActionResult GetOneReservation(int id)
+        {
+            return new ObjectResult( _mapper.Map<M.Reservation>(_repository.reservation.GetOneReservation(id)));
+        }
         [HttpPost]
         [Route("AddReservation")]
         public IActionResult AddReservation([FromBody] M.ReservationCreateUpdateModel reservation)
         {
+            var disponibility = _repository.Disponibility.FindById(x => x.disponibilityId == reservation.disponibilityId);
             var data = _mapper.Map<Reservation>(reservation);
+            data.professionalId = disponibility.professionalId;
+            data.startHour = disponibility.startHour;
+            data.endHour = disponibility.EndHour;
+            data.reservationDate = data.startHour.Date;
             
             data.statusId = 1;
-            return Ok(_repository.reservation.Create(data));
+            try
+            {
+                var res=_repository.reservation.Create(data);
+                disponibility.reserved = true;
+                _repository.Disponibility.Update(disponibility);
+                return new ObjectResult(res);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+           
         }
+        //[HttpPut]
+        //[Route("UpdateReservation")]
+        //public IActionResult UpdateReservation( M.ReservationCreateUpdateModel reservation)
+        //{
+        //    if (_repository.reservation.FindByCondition(res=>res.reservationId==reservation.reservationId)==null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var result= _repository.reservation.Update(_mapper.Map<Reservation>(reservation));
+        //    return Ok(result);
+        //}
         [HttpPut]
-        [Route("UpdateReservation")]
-        public IActionResult UpdateReservation( M.ReservationCreateUpdateModel reservation)
+        [Route("CancelReservation")]
+        public IActionResult CancelReservation( int reservationId)
         {
-            if (_repository.reservation.FindByCondition(res=>res.reservationId==reservation.reservationId)==null)
+            var res = _repository.reservation.FindById(x => x.reservationId == reservationId);
+            if (res==null)
             {
                 return NotFound();
             }
-            var result= _repository.reservation.Update(_mapper.Map<Reservation>(reservation));
-            return Ok(result);
-        }
-        [HttpDelete]
-        [Route("CancelReservation")]
-        public IActionResult CancelReservation( M.Reservation reservation)
-        {  
-            if (_repository.reservation.FindByCondition(res=>res.reservationId==reservation.reservationId)==null)
+            res.statusId = 5;
+            try
             {
-                return NotFound();
+                var result = _repository.reservation.Update(_mapper.Map<Reservation>(res));
+                var disponibility= _repository.Disponibility.FindById(x => x.disponibilityId == res.disponibilityId);
+                disponibility.reserved = false;
+                _repository.Disponibility.Update(disponibility);
+                return new ObjectResult(result);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
             }
             
-            var result= _repository.reservation.Delete(_mapper.Map<Reservation>(reservation));
-            return Ok(result);
+
+           
         }   
+        
 
         #endregion
         
@@ -109,6 +154,35 @@ namespace HouseCleanersApi.Controllers
                 return NotFound();
             }
            return new ObjectResult(_repository.Customers.Update(_mapper.Map<Customer>(customer)));
+        }
+
+
+        [HttpPut]
+        [Route("DeleteCustomer")]
+        public IActionResult DeleteCustomer(int id)
+        {
+            var customer = _repository.Customers.FindById(x => x.customerId == id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            customer.active = false;
+            return new ObjectResult(_repository.Customers.Update(customer));
+        }
+
+        [HttpPut]
+        [Route("ActivateCustomer")]
+        public IActionResult ActivateCustomer(int id)
+        {
+            var customer = _repository.Customers.FindById(x => x.customerId == id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            customer.active = true;
+            return new ObjectResult(_repository.Customers.Update(customer));
         }
         #endregion
     }

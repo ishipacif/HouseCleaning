@@ -8,9 +8,8 @@ namespace HouseCleanersApi.Data
     public class Disponibility
     {
         [Key]
-        public int id { get; set; }
-        
-        
+        public int disponibilityId { get; set; }
+
         [Required]
         public DateTime startHour { get; set; }
         [Required]

@@ -12,7 +12,7 @@ namespace HouseCleanersApi.Models
 
         public int invoiceId { get; set; }
         public DateTime invoiceDate { get; set; }
-        public decimal invoiceAmountTotal { get; set; }
+        public double invoiceAmountTotal { get; set; }
         public int customerId  { get; set; }
         public  Customer customer { get; set; }
         

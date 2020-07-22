@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HouseCleanersApi.Migrations
 {
-    public partial class dbCreate : Migration
+    public partial class UpdateStatusTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -55,7 +54,7 @@ namespace HouseCleanersApi.Migrations
                 columns: table => new
                 {
                     categoryId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     categoryName = table.Column<string>(nullable: false),
                     categoryDescription = table.Column<string>(nullable: false)
                 },
@@ -69,13 +68,14 @@ namespace HouseCleanersApi.Migrations
                 columns: table => new
                 {
                     statusId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     statusName = table.Column<string>(nullable: false),
                     statusDescription = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Status", x => x.statusId);
+                    table.UniqueConstraint("U.status", x => x.statusName);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,7 +83,7 @@ namespace HouseCleanersApi.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -104,7 +104,7 @@ namespace HouseCleanersApi.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -189,7 +189,7 @@ namespace HouseCleanersApi.Migrations
                 columns: table => new
                 {
                     customerId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     firstName = table.Column<string>(nullable: false),
                     lastName = table.Column<string>(nullable: false),
                     email = table.Column<string>(nullable: false),
@@ -219,7 +219,7 @@ namespace HouseCleanersApi.Migrations
                 columns: table => new
                 {
                     professionalId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     firstName = table.Column<string>(nullable: false),
                     lastName = table.Column<string>(nullable: false),
                     email = table.Column<string>(nullable: false),
@@ -248,8 +248,8 @@ namespace HouseCleanersApi.Migrations
                 name: "Disponibilities",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    disponibilityId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     startHour = table.Column<DateTime>(nullable: false),
                     EndHour = table.Column<DateTime>(nullable: false),
                     professionalId = table.Column<int>(nullable: false),
@@ -257,7 +257,7 @@ namespace HouseCleanersApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Disponibilities", x => x.id);
+                    table.PrimaryKey("PK_Disponibilities", x => x.disponibilityId);
                     table.ForeignKey(
                         name: "FK_Disponibilities_Professionals_professionalId",
                         column: x => x.professionalId,
@@ -271,7 +271,7 @@ namespace HouseCleanersApi.Migrations
                 columns: table => new
                 {
                     invoiceId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     invoiceDate = table.Column<DateTime>(nullable: false),
                     invoiceAmountTotal = table.Column<decimal>(type: "numeric", nullable: false),
                     customerId = table.Column<int>(nullable: true),
@@ -299,7 +299,7 @@ namespace HouseCleanersApi.Migrations
                 columns: table => new
                 {
                     planingId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     planingDate = table.Column<DateTime>(nullable: false),
                     startHour = table.Column<DateTime>(nullable: false),
                     endHour = table.Column<DateTime>(nullable: false),
@@ -326,12 +326,11 @@ namespace HouseCleanersApi.Migrations
                 columns: table => new
                 {
                     serviceId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     serviceName = table.Column<string>(nullable: false),
                     serviceDescription = table.Column<string>(nullable: false),
-                    serviceCommission = table.Column<string>(nullable: false),
-                    categoryId = table.Column<int>(nullable: true),
-                    price = table.Column<decimal>(nullable: false),
+                    categoryId = table.Column<int>(nullable: false),
+                    price = table.Column<double>(nullable: false),
                     professionalId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -380,14 +379,15 @@ namespace HouseCleanersApi.Migrations
                 columns: table => new
                 {
                     reservationId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     reservationDate = table.Column<DateTime>(nullable: false),
                     startHour = table.Column<DateTime>(nullable: false),
                     endHour = table.Column<DateTime>(nullable: false),
                     professionalId = table.Column<int>(nullable: true),
                     customerId = table.Column<int>(nullable: true),
                     ServiceId = table.Column<int>(nullable: true),
-                    statusId = table.Column<int>(nullable: true)
+                    statusId = table.Column<int>(nullable: true),
+                    disponibilityId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -404,6 +404,12 @@ namespace HouseCleanersApi.Migrations
                         principalTable: "Customers",
                         principalColumn: "customerId",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Disponibilities_disponibilityId",
+                        column: x => x.disponibilityId,
+                        principalTable: "Disponibilities",
+                        principalColumn: "disponibilityId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reservations_Professionals_professionalId",
                         column: x => x.professionalId,
@@ -423,7 +429,7 @@ namespace HouseCleanersApi.Migrations
                 columns: table => new
                 {
                     invoicelineId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     invoiceId = table.Column<int>(nullable: true),
                     reservationId = table.Column<int>(nullable: true),
                     hourCount = table.Column<decimal>(type: "numeric", nullable: false),
@@ -456,7 +462,8 @@ namespace HouseCleanersApi.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -482,7 +489,8 @@ namespace HouseCleanersApi.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_categoryName",
@@ -547,6 +555,11 @@ namespace HouseCleanersApi.Migrations
                 column: "customerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Reservations_disponibilityId",
+                table: "Reservations",
+                column: "disponibilityId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reservations_professionalId",
                 table: "Reservations",
                 column: "professionalId");
@@ -585,9 +598,6 @@ namespace HouseCleanersApi.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Disponibilities");
-
-            migrationBuilder.DropTable(
                 name: "InvoiceLines");
 
             migrationBuilder.DropTable(
@@ -610,6 +620,9 @@ namespace HouseCleanersApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Disponibilities");
 
             migrationBuilder.DropTable(
                 name: "Status");

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using HouseCleanersApi.Data;
 using Microsoft.AspNetCore.Identity;
+using System.Linq;
 
 namespace HouseCleanersApi.Data
 {
@@ -27,7 +28,8 @@ namespace HouseCleanersApi.Data
                 new Status{ statusName = "waiting",statusDescription ="Waiting for professional validation"},
                 new Status{ statusName = "accepted",statusDescription ="accepted by professional"},
                 new Status{ statusName = "refused",statusDescription =" professional refuse the reservation"},
-                new Status{ statusName = "Done",statusDescription ="Done by a professional ready to the billing"}
+                new Status{ statusName = "Done",statusDescription ="Done by a professional ready to the billing"},
+                new Status{ statusName = "Cancel",statusDescription ="Cancel by a customer ready to the billing"},
             };
 
             List<IdentityRole> roles = new List<IdentityRole>
@@ -67,9 +69,14 @@ namespace HouseCleanersApi.Data
                                     throw new InvalidOperationException("Failed to create admin");
                                 }
             }
-            
-            _context.Status.AddRange(statuses);
-             
+            //var status = _context.Status.Any();
+            if (!_context.Status.Any())
+            {
+                _context.Status.AddRange(statuses);
+                _context.SaveChanges();
+
+            }
+
         }
     }
 }

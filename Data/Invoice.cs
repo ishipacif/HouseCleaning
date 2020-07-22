@@ -11,7 +11,7 @@ namespace HouseCleanersApi.Data
 
         public int invoiceId { get; set; }
         public DateTime invoiceDate { get; set; }
-        public decimal invoiceAmountTotal { get; set; }
+        public double invoiceAmountTotal { get; set; }
         
         public int? customerId { get; set; }
 

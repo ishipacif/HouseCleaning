@@ -26,8 +26,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using Seeder = HouseCleanersApi.Data.Seeder;
 using User = HouseCleanersApi.Data.User;
 using AutoMapper;
-
-
+using HouseCleanersApi.Helper;
 
 namespace HouseCleanersApi
 {
@@ -46,10 +45,13 @@ namespace HouseCleanersApi
             
              services.AddControllers();
             // Add framework services.
-            services.AddDbContext<clearnersDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("NpgsqlConnection")));
+            //services.AddDbContext<clearnersDbContext>(options =>
+            //    options.UseNpgsql(Configuration.GetConnectionString("NpgsqlConnection")));
 
-           services.AddIdentity<User, IdentityRole>(cfg => { cfg.User.RequireUniqueEmail = true; })
+            services.AddDbContext<clearnersDbContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("NpgsqlConnection")));
+
+            services.AddIdentity<User, IdentityRole>(cfg => { cfg.User.RequireUniqueEmail = true; })
               .AddEntityFrameworkStores<clearnersDbContext>();
            services.AddAuthentication(
                    option => {
@@ -74,6 +76,13 @@ namespace HouseCleanersApi
             services.AddTransient<Seeder>();
             services.AddScoped<IGeneralRepository, GeneralRepository>(); // activation le service des service, en appelant l'interface on instancie la classe. 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                    options.JsonSerializerOptions.Converters.Add(new TimeSpanToStringConverter()));
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             services.AddSwaggerGen(doc =>
                 doc.SwaggerDoc("v1", new OpenApiInfo {Title = "DocumentationApi", Version = "v1"}));
 

@@ -5,7 +5,7 @@ namespace HouseCleanersApi.Models
 {
     public class DisponibilityCreateUpdateModel
     {
-        public int id { get; set; }
+        public int disponibilityId { get; set; }
         [Required]
      
         public DateTime date { get; set; }

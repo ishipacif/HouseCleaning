@@ -22,7 +22,9 @@ namespace HouseCleanersApi.Data
         public int? customerId { get; set; }
         public int? ServiceId { get; set; }
         public int? statusId { get; set; }
-
+        [Required]
+        public int disponibilityId { get; set; }
+        public Disponibility  disponibility{ get; set; }
         public virtual Customer customer { get; set; }
         public virtual Service Service { get; set; }
         public virtual Professional professional { get; set; }

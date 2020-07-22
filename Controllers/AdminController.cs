@@ -214,13 +214,7 @@ namespace HouseCleanersApi.Controllers
             return new ObjectResult(c);
         }
 
-        [HttpPost]
-        [Route("CreateProfessional")]
-        public IActionResult CreateProfessional([FromBody] M.ProfessionalCreateUpdateModel prof)
-        {
-            var c = _repository.professional.Create(_mapper.Map<D.Professional>(prof));
-            return new ObjectResult(c);
-        }
+       
 
         [HttpPost]
         [Route("AddServiceToProfessional")]
@@ -228,7 +222,7 @@ namespace HouseCleanersApi.Controllers
         {
             
             var c = _repository.ProfessionalServices.Create(_mapper.Map<D.ProfessionalService>(serprof));
-            return new ObjectResult("ok");
+            return new ObjectResult(c);
         }
 
 
