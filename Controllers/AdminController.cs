@@ -13,6 +13,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using M=HouseCleanersApi.Models;
 using D=HouseCleanersApi.Data;
+using System.Security.Cryptography.X509Certificates;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Query.ExpressionTranslators.Internal;
+
 namespace HouseCleanersApi.Controllers
 {
 
@@ -327,9 +330,6 @@ namespace HouseCleanersApi.Controllers
 
         #region Invoices
 
-        
-
-        
         // Invoices
 
         [HttpGet]
@@ -357,15 +357,15 @@ namespace HouseCleanersApi.Controllers
             };
            int id= _repository.invoice.Create(invoice).invoiceId;
            var invoiceLines = NoInvoicedLines(customerid) ;
-
+            var totalAmount =new List<double>();
            foreach (var i in invoiceLines)
            {
                i.invoiceId = id;
+               totalAmount.Add(i.amount);
            }
 
-           _repository.invoicelines.UpdateMany(invoiceLines);
-           invoice.invoiceAmountTotal = invoiceLines.Sum(invl => invl.amount);
-           _repository.invoice.Update(invoice);
+           invoice.invoiceAmountTotal = totalAmount.Sum();
+            var inv=  _repository.invoicelines.UpdateMany(invoiceLines);
            return new ObjectResult(_repository.invoice.Update(invoice));
         }
         [HttpPost]
@@ -445,7 +445,7 @@ namespace HouseCleanersApi.Controllers
         }
         private IEnumerable<InvoiceLine> NoInvoicedLines(int customerid)
         {
-            return _repository.invoicelines.GetInvoiceLineByCustomer(customerid).Where(invl=>invl.invoiceId==0);
+            return _repository.invoicelines.GetInvoiceLineByCustomer(customerid).Where(invl=>invl.invoiceId==null);
         }
         #endregion
 

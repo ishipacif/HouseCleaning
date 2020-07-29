@@ -517,3 +517,5 @@ C:\Users\p.ishimwe\source\repos\ishipacif\HouseCleaning\bin\Debug\netcoreapp3.0\
 C:\Users\p.ishimwe\source\repos\ishipacif\HouseCleaning\obj\Debug\netcoreapp3.0\HouseCleanersApi.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\p.ishimwe\source\repos\ishipacif\HouseCleaning\obj\Debug\netcoreapp3.0\HouseCleanersApi.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\p.ishimwe\source\repos\ishipacif\HouseCleaning\obj\Debug\netcoreapp3.0\HouseCleanersApi.csprojAssemblyReference.cache
+C:\Users\p.ishimwe\source\repos\ishipacif\HouseCleaning\obj\Debug\netcoreapp3.0\HouseCleanersApi.csproj.CoreCompileInputs.cache
+C:\Users\p.ishimwe\source\repos\ishipacif\HouseCleaning\obj\Debug\netcoreapp3.0\HouseCleanersApi.genruntimeconfig.cache
