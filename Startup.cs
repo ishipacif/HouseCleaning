@@ -51,14 +51,28 @@ namespace HouseCleanersApi
             services.AddDbContext<clearnersDbContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("NpgsqlConnection")));
 
-            services.AddIdentity<User, IdentityRole>(cfg => { cfg.User.RequireUniqueEmail = true; })
-              .AddEntityFrameworkStores<clearnersDbContext>();
-           services.AddAuthentication(
+            services.AddIdentity<User, IdentityRole>(cfg => {
+                cfg.User.RequireUniqueEmail = true;
+                cfg.Password.RequireNonAlphanumeric = false;
+                cfg.Password.RequireUppercase = false;
+                cfg.SignIn.RequireConfirmedEmail = true;
+                cfg.Tokens.EmailConfirmationTokenProvider = "emailconfirmation";
+            })
+              .AddEntityFrameworkStores<clearnersDbContext>()
+              .AddDefaultTokenProviders()
+              .AddTokenProvider<EmailConfirmationTokenProvider<User>>("emailconfirmation");
+            services.Configure<DataProtectionTokenProviderOptions>(opt =>
+             opt.TokenLifespan = TimeSpan.FromHours(2));
+
+            services.Configure<EmailConfirmationTokenProviderOptions>(opt =>
+                opt.TokenLifespan = TimeSpan.FromDays(3));
+            services.AddAuthentication(
                    option => {
                        option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                        option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                        option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                    })
+
                .AddCookie()
                .AddJwtBearer(cfg=>
                    {
@@ -83,9 +97,45 @@ namespace HouseCleanersApi
             services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
-            services.AddSwaggerGen(doc =>
-                doc.SwaggerDoc("v1", new OpenApiInfo {Title = "DocumentationApi", Version = "v1"}));
+            services.AddSwaggerGen(s =>
+              {
+                  s.SwaggerDoc("v1", new OpenApiInfo { Title = "DocumentationApi", Version = "v1" });
+                  s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                  {
+                      Description = "JWT Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
+                      Name = "Authorization",
+                      In = ParameterLocation.Header,
+                      Type = SecuritySchemeType.ApiKey,
+                      Scheme = "Bearer"
+                  });
 
+                  s.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    Array.Empty<string>()
+                }
+            });
+
+
+
+
+
+
+              }
+
+                );
+
+
+
+         
 
         }
 
@@ -105,15 +155,12 @@ namespace HouseCleanersApi
             //app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseMiddleware<ChallengeMiddleware>();
+            app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(doc => doc.SwaggerEndpoint("/swagger/v1/swagger.json", "DocumentationApi v1"));
             
-            
-           
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

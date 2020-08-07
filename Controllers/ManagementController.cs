@@ -15,8 +15,7 @@ using HouseCleanersApi.Data;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 using M=HouseCleanersApi.Models;
 using D=HouseCleanersApi.Data;
-
-
+using EmailService;
 
 namespace HouseCleanersApi.Controllers
 {
@@ -29,9 +28,10 @@ namespace HouseCleanersApi.Controllers
         private readonly IMapper _mapper;
         private readonly IGeneralRepository _repository;
         private readonly IConfiguration _config;
-        
-        
-        public ManagementController( UserManager<D.User> userManager, IGeneralRepository repository, SignInManager<D.User>signInManager, IConfiguration config,IMapper mapper)
+        private readonly IEmailSender _emailSender;
+
+
+        public ManagementController( UserManager<D.User> userManager, IGeneralRepository repository, SignInManager<D.User>signInManager, IConfiguration config,IMapper mapper, IEmailSender emailSender)
         {
            _userManager = userManager ;
            _signInManager = signInManager;
@@ -60,6 +60,11 @@ namespace HouseCleanersApi.Controllers
             var result = await _userManager.CreateAsync(user, model.password);
             if (result.Succeeded)
             {
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Management", new { token, email = user.Email }, Request.Scheme);
+
+            var message = new Message(new string[] { user.Email }, "Confirmation email link", confirmationLink, null);
+            await _emailSender.SendEmailAsync(message);
                 await _userManager.AddToRoleAsync(user, "professionals");
                  
                 var professional = _mapper.Map<D.Professional>(model);
@@ -82,11 +87,21 @@ namespace HouseCleanersApi.Controllers
                 return new ObjectResult(result.Errors);
             }
         }
-        
-        
 
-[HttpPost]
-[Route("CreateCustomer")]
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string token, string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return new ObjectResult("Error");
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            return new ObjectResult(result.Succeeded ? nameof(ConfirmEmail) : "Error");
+        }
+
+
+        [HttpPost]
+        [Route("CreateCustomer")]
         public async Task<IActionResult> CreateCustomer(CustomerCreateUpdateModel model)
         {
             if (!ModelState.IsValid)
@@ -153,7 +168,7 @@ namespace HouseCleanersApi.Controllers
                                                      _config["Tokens:Issuer"],
                                                      _config["Tokens:Audience"],
                                                      claims,
-                                                     expires: DateTime.Now.AddMinutes(20),
+                                                     expires: DateTime.Now.AddDays(1),
                                                      signingCredentials: creds
                                                      );
                                                  var results = new

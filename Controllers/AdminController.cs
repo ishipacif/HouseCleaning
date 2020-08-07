@@ -15,10 +15,13 @@ using M=HouseCleanersApi.Models;
 using D=HouseCleanersApi.Data;
 using System.Security.Cryptography.X509Certificates;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Query.ExpressionTranslators.Internal;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace HouseCleanersApi.Controllers
 {
-
+    
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
@@ -30,7 +33,6 @@ namespace HouseCleanersApi.Controllers
             _repository = repository;
             _mapper = mapper;
         }
-
 
         #region Categorie
 
